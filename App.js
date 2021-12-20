@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import BrowsePost from './app/screens/BrowsePost'
+
 export default function App() {
+  console.log('run successfully');
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>This is the landing page</Text>
       <StatusBar style="auto" />
+      <BrowsePost />
+      <BrowsePost/>
     </View>
   );
 }

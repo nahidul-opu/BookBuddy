@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import BrowsePost from './app/screens/BrowsePost'
 import SearchBar from './app/components/SearchBar';
 
+
 export default function App() {
   console.log('run successfully');
   return (
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: "6%"
+    paddingTop: 50,
+
   },
 });

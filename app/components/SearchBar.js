@@ -20,7 +20,7 @@ const SearchBar = () => {
                 }/>
                 
                 <TextInput
-                    onChangeText={onChangeText} placeholder='Search Books' value={text}/>
+                    onChangeText={onChangeText} placeholder='Search Books' style={{width: '100%'}} value={text}/>
             </View>
 
             <TouchableOpacity>

@@ -28,10 +28,16 @@ export default function LoginScreen({ navigation }) {
   const onLogin = async () => {
     try {
       if (email !== "" && password !== "") {
+        auth.signOut();
         setLoginError("");
         await auth.signInWithEmailAndPassword(email, password);
-        if (auth.currentUser === null)
+        if (
+          auth.currentUser !== null &&
+          auth.currentUser.emailVerified === false
+        ) {
           setLoginError("Please Verify Your Email!");
+          auth.signOut();
+        } else console.log("DOne");
       }
     } catch (error) {
       setLoginError(error.message);

@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default function AuthStack() {
   return (
     <Stack.Navigator headerShown= 'false'>
-      <Stack.Screen name='Login' component={LoginScreen} />
+      <Stack.Screen name='BookBuddy' component={LoginScreen} />
       <Stack.Screen name='Signup' component={SignUpScreen} />
     </Stack.Navigator>
   );

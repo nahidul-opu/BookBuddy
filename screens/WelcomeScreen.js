@@ -9,7 +9,7 @@ function WelcomeScreen(props) {
         style={styles.background}
         source={require("../assets/background.jpg")}> 
         <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require("../assets/logo-red.png")}/>
+            <Image style={styles.logo} source={require("../assets/logo.jpg")}/>
             <Text style={styles.tagLine}>Sell What You Don't Need</Text>
         </View>
         <View style={styles.buttonsContainer}>

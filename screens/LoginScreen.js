@@ -46,10 +46,10 @@ export default function LoginScreen({ navigation }) {
         }}
         containerStyle={{
           backgroundColor: '#fff',
-          marginBottom: 20
+          marginBottom: 10
         }}
         leftIcon='email'
-        placeholder='Enter email'
+        placeholder='Enter Email'
         autoCapitalize='none'
         keyboardType='email-address'
         textContentType='emailAddress'
@@ -63,10 +63,10 @@ export default function LoginScreen({ navigation }) {
         }}
         containerStyle={{
           backgroundColor: '#fff',
-          marginBottom: 20
+          marginBottom: 10
         }}
         leftIcon='lock'
-        placeholder='Enter password'
+        placeholder='Enter Password'
         autoCapitalize='none'
         autoCorrect={false}
         secureTextEntry={passwordVisibility}
@@ -79,18 +79,18 @@ export default function LoginScreen({ navigation }) {
       {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
       <Button
         onPress={onLogin}
-        backgroundColor='#f57c00'
+        backgroundColor='black'
         title='Login'
-        tileColor='#fff'
+        color='#fff'
         titleSize={20}
         containerStyle={{
-          marginBottom: 24
+          marginBottom: 14
         }}
       />
       <RNButton
         onPress={() => navigation.navigate('Signup')}
         backgroundColor='#f57c00'
-        title='Go to Signup'
+        title='Signup'
         titleColor='#fff'
         titleSize={20}
       />
@@ -101,9 +101,9 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e93b81',
-    paddingTop: 50,
-    paddingHorizontal: 12
+    backgroundColor: '#8825BA',
+    paddingTop: 200,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 24,

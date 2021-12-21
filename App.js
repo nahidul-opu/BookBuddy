@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import BrowsePost from './app/screens/BrowsePost'
 import SearchBar from './app/components/SearchBar';
-
+import AddPost from './app/screens/AddPost';
 
 export default function App() {
   console.log('run successfully');
   return (
     <View style={styles.container}>
-      <BrowsePost/>
+      <AddPost/>
     </View>
   );
 }

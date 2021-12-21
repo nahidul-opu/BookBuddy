@@ -10,11 +10,9 @@ const auth = Firebase.auth();
 export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
-  const isSignedIn = false;
   function checkUser(authenticatedUser) {
     if (authenticatedUser && authenticatedUser.emailVerified) {
       setUser(authenticatedUser);
-      isSignedIn = true;
       isLoading = false;
     } else {
       setUser(null);

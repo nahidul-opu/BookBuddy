@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { useState } from "react";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
 import {
   StyleSheet,
   Text,
@@ -22,7 +23,7 @@ export default function SignupScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState("eye");
   const [signupError, setSignupError] = useState("");
-
+  const [busy, setBusy] = useState(false);
   const handlePasswordVisibility = () => {
     if (rightIcon === "eye") {
       setRightIcon("eye-off");
@@ -34,6 +35,7 @@ export default function SignupScreen({ navigation }) {
   };
 
   const onHandleSignup = async () => {
+    setBusy(true);
     try {
       if (email !== "" && password !== "") {
         await auth.createUserWithEmailAndPassword(email, password);
@@ -55,13 +57,13 @@ export default function SignupScreen({ navigation }) {
       Alert.alert("Error!", error.message, [{ text: "OK" }]);
       //setSignupError(error.message);
     }
+    setBusy(false);
   };
 
   return (
     <View style={styles.container}>
       <StatusBar style="dark-content" />
       <Text style={styles.title}>Sign Up</Text>
-
       <InputField
         inputStyle={{
           fontSize: 14,
@@ -80,7 +82,6 @@ export default function SignupScreen({ navigation }) {
         value={name}
         onChangeText={(text) => setName(text)}
       />
-
       <InputField
         inputStyle={{
           fontSize: 14,
@@ -127,7 +128,6 @@ export default function SignupScreen({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         handlePasswordVisibility={handlePasswordVisibility}
       />
-
       {
         //signupError ? <ErrorMessage error={signupError} visible={true} /> : null}
       }
@@ -145,6 +145,26 @@ export default function SignupScreen({ navigation }) {
           height: 50,
         }}
       />
+      {busy ? (
+        <AnimatedCircularProgress
+          size={120}
+          width={15}
+          fill={100}
+          duration={500}
+          tintColor="#00e0ff"
+          backgroundColor="#3d5875"
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            backgroundColor: "white",
+          }}
+        />
+      ) : null}
     </View>
   );
 }

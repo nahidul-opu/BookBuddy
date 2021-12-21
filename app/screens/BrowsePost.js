@@ -9,8 +9,11 @@ import PostComp from '../components/PostComp';
 
 const BrowsePost = () => {
     return (
-        <View>
-            <SearchBar/>
+        <View style={{
+            padding: 10
+        }}>
+            
+            <PostComp/>
             <PostComp/>
         </View>
         

@@ -1,5 +1,6 @@
-export default{
-    primary: '#3399ff',
-    secondary: '#ccffff',
-    dark: '#00001a',
-}
+export default {
+  primary: "white",
+  secondary: "lightblue",
+  black: "#000",
+  white: "#fff",
+};

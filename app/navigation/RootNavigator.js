@@ -13,7 +13,7 @@ export default function RootNavigator() {
   function checkUser(authenticatedUser) {
     if (authenticatedUser && authenticatedUser.emailVerified) {
       setUser(authenticatedUser);
-      isLoading = false;
+      setIsLoading(false);
     } else {
       setUser(null);
     }

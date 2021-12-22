@@ -6,7 +6,7 @@ const CircularProgressTracker = () => {
       size={120}
       width={15}
       fill={100}
-      duration={500}
+      duration={1000}
       tintColor="#00e0ff"
       backgroundColor="#3d5875"
       style={{

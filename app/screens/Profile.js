@@ -9,7 +9,7 @@ import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvide
 
 const auth = Firebase.auth();
 
-export default function HomeScreen() {
+export default function Profile() {
   const { user } = useContext(AuthenticatedUserContext);
   const handleSignOut = async () => {
     try {

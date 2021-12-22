@@ -8,6 +8,7 @@ import {
   Button as RNButton,
   Alert,
 } from "react-native";
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 import CircularProgressTracker from "../components/CircularProgressTracker";
 import { Button, InputField, ErrorMessage } from "../components";
@@ -15,6 +16,16 @@ import Firebase from "../config/firebase";
 import colors from "../config/colors";
 
 const auth = Firebase.auth();
+
+function createUserInDB(name, email) {
+  const db = getDatabase(Firebase);
+  const reference = ref(db, "users/" + auth.currentUser.uid);
+  set(reference, {
+    name: name,
+    email: email,
+    verified: false,
+  });
+}
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState("");
@@ -37,14 +48,15 @@ export default function SignupScreen({ navigation }) {
   const onHandleSignup = async () => {
     setBusy(true);
     try {
-      if (email !== "" && password !== "") {
+      if (name !== "" && email !== "" && password !== "") {
         await auth.createUserWithEmailAndPassword(email, password);
+        createUserInDB(name, email);
         await auth.currentUser.sendEmailVerification();
         Alert.alert(
           "Success",
-          "Verification Mail is sent to " +
+          "Verification Mail is sent to \n" +
             email +
-            ". Verify Your Account to Continue.",
+            "\nVerify Your Account to Continue.",
           [{ text: "OK", onPress: () => navigation.navigate("Login") }]
         );
         /*setSignupError(

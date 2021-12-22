@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.cuet.BookBuddy"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"

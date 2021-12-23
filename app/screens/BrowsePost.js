@@ -8,92 +8,62 @@ import SearchBar from "../components/SearchBar";
 import PostComp from "../components/PostComp";
 
 const auth = Firebase.auth();
-
-function checkFirstLogin() {
-  const db = getDatabase(Firebase);
-  const reference = ref(db, "users/" + auth.currentUser.uid + "/verified");
-  var verified = true;
-  onValue(reference, async (snapshot) => {
-    verified = await snapshot.val();
-    if (verified === false) {
-    }
-  });
-  return verified;
-}
-
-function snapshotToArray(snapshot) {
-  var returnArr = [];
-
-  snapshot.forEach(function (childSnapshot) {
-    var item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    var bookItem;
-    const db = getDatabase(Firebase);
-    const reference = ref(db, "books/" + item["bookId"]);
-    onValue(reference, (snapshot) => {
-      bookItem = snapshot.val();
-    });
-    returnArr.push({ ...item, ...bookItem });
-  });
-
-  return returnArr;
-}
+const db = getDatabase(Firebase);
 
 export default function BrowsePost({ navigation }) {
-  /*if (checkFirstLogin() === false) {
-    navigation.navigate("Profile");
-  }*/
-
+  const [reload, setReload] = React.useState(false);
   const [isLoaded, setLoaded] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   React.useEffect(() => {
-    const db = getDatabase(Firebase);
+    setReload(false);
+    var returnArr = [];
+    var postArr = [];
     const reference = ref(db, "posts/");
     onValue(reference, async (snapshot) => {
-      var returnArr = [];
+      var l = snapshot.size;
+      console.log(l);
       snapshot.forEach(function (childSnapshot) {
         var item = childSnapshot.val();
         item.key = childSnapshot.key;
-        var bookItem;
-        const reference = ref(db, "books/" + item["bookId"]);
-        onValue(reference, async (snapshot) => {
-          bookItem = snapshot.val();
+        const breference = ref(getDatabase(), "books/" + item["bookId"]);
+        onValue(breference, async (booksnapshot) => {
+          returnArr.push({ ...item, ...booksnapshot.val() });
+          l--;
+          if (l <= 0) {
+            setPosts(returnArr);
+            setLoaded(true);
+            setReload(false);
+          }
         });
-        returnArr.push({ ...item, ...bookItem });
       });
-      setPosts(returnArr);
-      setLoaded(true);
+      console.log(returnArr.length);
+      if (returnArr.length === 0) {
+        setReload(true);
+      }
     });
-  }, []);
+  }, [reload]);
 
   // console.log('post length '+posts.length)
   return (
     <View
       style={{
-        flexDirection: 'column',
-        backgroundColor: 'white',
+        flexDirection: "column",
+        backgroundColor: "white",
         paddingTop: StatusBar.currentHeight,
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
         padding: 15,
-        
+      }}
+    >
+      <SearchBar inpColor="white" />
 
-      }}> 
-      <SearchBar inpColor={'white'}/>
-
-      <ScrollView style={{
-        
-      }}>
-        
+      <ScrollView style={{}}>
         {isLoaded === true
           ? posts.map((element, index) => (
-            
               <PostComp key={index} postInfo={element} />
-              
             ))
           : null}
-
       </ScrollView>
     </View>
   );

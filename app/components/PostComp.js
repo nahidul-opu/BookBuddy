@@ -13,20 +13,20 @@ import colors from "../config/colors";
 import FullPost from "../screens/FullPost";
 
 export default function PostComp({ postInfo }) {
-  console.log(postInfo);
   return (
-    <TouchableOpacity style={styles.postContainer}
+    <TouchableOpacity
+      style={styles.postContainer}
       onPress={
         // navigation.navigate(FullPost)
-        console.log('pressed')
-      }>
+        console.log("pressed")
+      }
+    >
       <Image source={{ uri: postInfo.bookCover }} style={styles.bookImage} />
       <View style={styles.bookDetail}>
         <Text
           style={{
             fontSize: 30,
-            marginBottom:5,
-            
+            marginBottom: 5,
           }}
         >
           {postInfo.title}
@@ -35,7 +35,7 @@ export default function PostComp({ postInfo }) {
           style={{
             fontSize: 18,
             color: "blue",
-            marginBottom:5,
+            marginBottom: 5,
           }}
         >
           {postInfo.author}
@@ -44,14 +44,14 @@ export default function PostComp({ postInfo }) {
           style={{
             fontSize: 10,
             color: "gray",
-            marginBottom:5,
+            marginBottom: 5,
             // marginRight: 3,
-            width: '100%',
+            width: "100%",
             // backgroundColor: 'blue',
-            textAlign: 'justify'
+            textAlign: "justify",
           }}
         >
-          {postInfo.description.slice(0,350)+'...'}
+          {postInfo.description.slice(0, 325) + "..."}
         </Text>
       </View>
     </TouchableOpacity>
@@ -60,7 +60,7 @@ export default function PostComp({ postInfo }) {
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: '#f2f2f2',//'#ebebeb',
+    backgroundColor: "#f2f2f2", //'#ebebeb',
     width: "100%",
     height: 200,
     borderRadius: 10,
@@ -68,26 +68,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 0.5,
     marginBottom: 15,
-    padding: 5
-    
+    padding: 5,
   },
 
   bookImage: {
-    height: '100%',
+    height: "100%",
     width: "40%",
     // margin: 5
     //marginRight: 10
     borderRadius: 10,
   },
   bookDetail: {
-    backgroundColor: '#f2f2f2',//'#ebebeb',
+    backgroundColor: "#f2f2f2", //'#ebebeb',
     height: "100%",
     width: "56%",
     borderRadius: 10,
     flexDirection: "column",
     alignItems: "flex-start",
     // margin: 5,
-    marginLeft: 10
-    
+    marginLeft: 10,
   },
 });

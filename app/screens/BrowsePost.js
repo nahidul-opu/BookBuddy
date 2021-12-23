@@ -1,7 +1,7 @@
 // In App.js in a new project
 
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView, StatusBar } from "react-native";
 import { getDatabase, ref, onValue } from "@firebase/database";
 import Firebase from "../config/firebase";
 import SearchBar from "../components/SearchBar";
@@ -66,17 +66,34 @@ export default function BrowsePost({ navigation }) {
     });
   }, []);
 
+  // console.log('post length '+posts.length)
   return (
     <View
       style={{
-        padding: 10,
-      }}
-    >
-      {isLoaded === true
-        ? posts.map((element, index) => (
-            <PostComp key={index} postInfo={element} />
-          ))
-        : null}
+        flexDirection: 'column',
+        backgroundColor: '#ebebeb',
+        paddingTop: StatusBar.currentHeight+10,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15
+
+      }}> 
+      <SearchBar inpColor={'white'}/>
+
+      <ScrollView style={{
+        
+      }}>
+        
+        {isLoaded === true
+          ? posts.map((element, index) => (
+            
+              <PostComp key={index} postInfo={element} />
+              
+            ))
+          : null}
+
+      </ScrollView>
     </View>
   );
 }

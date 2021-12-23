@@ -19,7 +19,8 @@ export default function PostComp({ postInfo }) {
       <View style={styles.bookDetail}>
         <Text
           style={{
-            fontSize: 40,
+            fontSize: 30,
+            marginBottom:5,
           }}
         >
           {postInfo.title}
@@ -28,6 +29,7 @@ export default function PostComp({ postInfo }) {
           style={{
             fontSize: 18,
             color: "blue",
+            marginBottom:5,
           }}
         >
           {postInfo.author}
@@ -36,9 +38,10 @@ export default function PostComp({ postInfo }) {
           style={{
             fontSize: 10,
             color: "gray",
+            marginBottom:5,
           }}
         >
-          {postInfo.description}
+          {postInfo.description.slice(0,520)+'...'}
         </Text>
       </View>
     </TouchableOpacity>
@@ -48,25 +51,32 @@ export default function PostComp({ postInfo }) {
 const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: colors.primary,
-    width: "95%",
-    height: 300,
+    width: "100%",
+    height: 200,
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",
+    
+    // marginLeft:20,
+    // marginRight:20,
+    marginBottom: 15,
+    
   },
 
   bookImage: {
     height: 200,
-    width: "50%",
-    margin: 10,
+    width: "40%",
+    // margin: 5
+    //marginRight: 10
   },
   bookDetail: {
-    backgroundColor: colors.secondary,
+    backgroundColor: 'white',
     height: "100%",
-    width: "50%",
+    width: "60%",
     borderRadius: 0,
     flexDirection: "column",
     alignItems: "flex-start",
-    margin: 10,
+    margin: 5
+    
   },
 });

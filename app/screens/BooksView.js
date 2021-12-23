@@ -8,69 +8,64 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Firebase from "../config/firebase";
 import SearchBar from "../components/SearchBar";
-import PostComp from "../components/PostComp";
+import BookComp from "../components/BookComp";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CircularProgressTracker from "../components/CircularProgressTracker";
 
 const auth = Firebase.auth();
 const db = getDatabase(Firebase);
 
-export default function BrowsePost({ navigation }) {
-  const [reload, setReload] = React.useState(false);
-  const [isLoaded, setLoaded] = React.useState(false);
-  const [posts, setPosts] = React.useState([]);
+export default function BrowseBooks({ navigation }) {
+  const [breload, setbReload] = React.useState(false);
+  const [bisLoaded, setbLoaded] = React.useState(false);
+  const [books, setBooks] = React.useState([]);
   React.useEffect(() => {
-    setReload(false);
+    setbReload(false);
     var returnArr = [];
-    const reference = ref(db, "posts/");
+    const reference = ref(db, "books/");
     onValue(reference, async (snapshot) => {
-      var l = snapshot.size;
-      console.log(l);
       returnArr = [];
       snapshot.forEach(function (childSnapshot) {
         var item = childSnapshot.val();
         item.key = childSnapshot.key;
-        const breference = ref(getDatabase(), "books/" + item["bookId"]);
-        onValue(breference, async (booksnapshot) => {
-          returnArr.push({ ...item, ...booksnapshot.val() });
-          l--;
-          if (l <= 0) {
-            setPosts(returnArr);
-            setLoaded(true);
-            setReload(false);
-          }
-        });
+        returnArr.push(item);
       });
-      console.log(returnArr.length);
-      if (returnArr.length === 0) {
-        setReload(true);
-      }
+      setBooks(returnArr);
+      setbLoaded(true);
+      setbReload(false);
     });
-  }, [reload]);
+    console.log(returnArr.length);
+    if (returnArr.length === 0) {
+      setbReload(true);
+    }
+  }, [breload]);
 
   // console.log('post length '+posts.length)
   return (
     <View
       style={{
-        flexDirection: "column",
         backgroundColor: "white",
         paddingTop: StatusBar.currentHeight,
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 15,
       }}
     >
       <SearchBar inpColor={"white"} />
 
-      <ScrollView style={{}}>
-        {isLoaded === true ? (
-          posts.map((element, index) => (
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          paddingLeft: 10,
+        }}
+      >
+        {bisLoaded === true ? (
+          books.map((element, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() => navigation.navigate("Post Details", element)}
+              //onPress={() => navigation.navigate("Post Details", element)}
             >
-              <PostComp key={index} postInfo={element} />
+              <BookComp style={{}} key={index} bookInfo={element} />
             </TouchableOpacity>
           ))
         ) : (

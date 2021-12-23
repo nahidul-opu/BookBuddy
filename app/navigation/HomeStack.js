@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Profile from "../screens/Profile";
-import BrowsePost from "../screens/BrowsePost";
+import BooksView from "../screens/BooksView";
 import AddPost from "../screens/AddPost";
 import tempPost from "../screens/tempPost";
 
@@ -35,7 +35,7 @@ export default function HomeStack() {
       />
       <Tab.Screen
         name="Books"
-        component={AddPost}
+        component={BooksView}
         options={{
           title: "Books",
           tabBarIcon: ({ tintColor, focused }) => (

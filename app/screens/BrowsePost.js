@@ -6,6 +6,7 @@ import { getDatabase, ref, onValue } from "@firebase/database";
 import Firebase from "../config/firebase";
 import SearchBar from "../components/SearchBar";
 import PostComp from "../components/PostComp";
+import CircularProgressTracker from "../components/CircularProgressTracker";
 
 const auth = Firebase.auth();
 const db = getDatabase(Firebase);
@@ -59,11 +60,13 @@ export default function BrowsePost({ navigation }) {
       <SearchBar inpColor="white" />
 
       <ScrollView style={{}}>
-        {isLoaded === true
-          ? posts.map((element, index) => (
-              <PostComp key={index} postInfo={element} />
-            ))
-          : null}
+        {isLoaded === true ? (
+          posts.map((element, index) => (
+            <PostComp key={index} postInfo={element} />
+          ))
+        ) : (
+          <CircularProgressTracker />
+        )}
       </ScrollView>
     </View>
   );

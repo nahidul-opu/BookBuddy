@@ -12,6 +12,7 @@ import React from "react";
 import colors from "../config/colors";
 
 export default function PostComp({ postInfo }) {
+  console.log(postInfo)
   return (
     <TouchableOpacity style={styles.postContainer}>
       <Image style={styles.bookImage} source={{ url: postInfo.BookCover }} />
@@ -21,7 +22,8 @@ export default function PostComp({ postInfo }) {
             fontSize: 40,
           }}
         >
-          {postInfo.Title}
+          {/* {postInfo.Title} */}
+          Gitanjali
         </Text>
         <Text
           style={{
@@ -29,7 +31,9 @@ export default function PostComp({ postInfo }) {
             color: "blue",
           }}
         >
-          {postInfo.writer}
+          {/* {postInfo.Author} */}
+          Rabindranath Tagore
+          
         </Text>
         <Text
           style={{
@@ -37,7 +41,8 @@ export default function PostComp({ postInfo }) {
             color: "gray",
           }}
         >
-          {postInfo.description}
+          {/* {postInfo.Description} */}
+          It is a great novel wirtten by tagore.
         </Text>
       </View>
     </TouchableOpacity>

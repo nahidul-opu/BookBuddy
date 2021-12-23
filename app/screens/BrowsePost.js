@@ -66,6 +66,8 @@ export default function BrowsePost({ navigation }) {
       setLoaded(true);
     });
   }, []);
+
+  
   return (
     <View
       style={{

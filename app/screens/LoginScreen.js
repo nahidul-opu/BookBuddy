@@ -48,13 +48,14 @@ export default function LoginScreen({ navigation }) {
           //setLoginError("Please Verify Your Email!");
           Alert.alert("Error!", "Please Verify Your Email!", [{ Text: "OK" }]);
           auth.signOut();
+          setBusy(false);
         }
       }
     } catch (error) {
       //setLoginError(error.message);
       Alert.alert("Error!", error.message, [{ Text: "OK" }]);
+      setBusy(false);
     }
-    setBusy(false);
   };
 
   return (

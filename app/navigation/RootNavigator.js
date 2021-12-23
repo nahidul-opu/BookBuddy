@@ -9,19 +9,17 @@ import HomeStack from "./HomeStack";
 const auth = Firebase.auth();
 export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
-  function checkUser(authenticatedUser) {
-    if (authenticatedUser && authenticatedUser.emailVerified) {
-      setUser(authenticatedUser);
-    } else {
-      setUser(null);
-    }
-  }
+
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = auth.onAuthStateChanged(
       async (authenticatedUser) => {
         try {
-          await checkUser(authenticatedUser);
+          if (authenticatedUser && authenticatedUser.emailVerified) {
+            setUser(authenticatedUser);
+          } else {
+            setUser(null);
+          }
         } catch (error) {
           console.log(error);
         }

@@ -71,7 +71,7 @@ export default function BrowsePost({ navigation }) {
     <View
       style={{
         flexDirection: 'column',
-        backgroundColor: '#ebebeb',
+        backgroundColor: 'white',
         paddingTop: StatusBar.currentHeight+10,
         flex: 1,
         alignItems: 'center',

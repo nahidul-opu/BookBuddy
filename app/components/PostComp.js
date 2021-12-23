@@ -46,7 +46,7 @@ export default function PostComp({ postInfo }) {
             color: "gray",
             marginBottom:5,
             // marginRight: 3,
-            width: '85%',
+            width: '100%',
             // backgroundColor: 'blue',
             textAlign: 'justify'
           }}
@@ -60,7 +60,7 @@ export default function PostComp({ postInfo }) {
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: colors.primary,
+    backgroundColor: '#f2f2f2',//'#ebebeb',
     width: "100%",
     height: 200,
     borderRadius: 10,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 0.5,
     marginBottom: 15,
-    padding: 2
+    padding: 5
     
   },
 
@@ -77,16 +77,17 @@ const styles = StyleSheet.create({
     width: "40%",
     // margin: 5
     //marginRight: 10
-    borderRadius: 10
+    borderRadius: 10,
   },
   bookDetail: {
-    backgroundColor: 'white',
+    backgroundColor: '#f2f2f2',//'#ebebeb',
     height: "100%",
-    width: "55%",
+    width: "56%",
     borderRadius: 10,
     flexDirection: "column",
     alignItems: "flex-start",
-    margin: 5,
+    // margin: 5,
+    marginLeft: 10
     
   },
 });

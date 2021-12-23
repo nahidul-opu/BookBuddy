@@ -130,7 +130,7 @@ const AddPost = () => {
               fontSize: 20,
             }}
           >
-            Add New Post
+            Add New Book
           </Text>
 
       </View>
@@ -211,7 +211,7 @@ const AddPost = () => {
           fontSize: 20,
           color: 'white'
         }}>
-          Post
+          Add Book
         </Text>
       </Pressable>
 

@@ -33,7 +33,7 @@ export default function HomeStack() {
       />
       <Tab.Screen
         name="Books"
-        component={BrowsePost}
+        component={AddPost}
         options={{
           title: "Books",
           tabBarIcon: ({ tintColor, focused }) => (

@@ -9,22 +9,12 @@ import {
 } from "react-native";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import React from "react";
-import {
-  ref as storageRef,
-  getStorage,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
 import colors from "../config/colors";
-import Firebase from "../config/firebase";
 
 export default function PostComp({ postInfo }) {
   return (
     <TouchableOpacity style={styles.postContainer}>
-      <Image
-        style={styles.bookImage}
-        source={require("../assets/gitanjali.png")}
-      />
+      <Image style={styles.bookImage} source={{ url: postInfo.BookCover }} />
       <View style={styles.bookDetail}>
         <Text
           style={{

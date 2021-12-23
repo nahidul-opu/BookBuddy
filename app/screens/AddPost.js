@@ -1,5 +1,5 @@
 // import * as React from 'react';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
   StatusBar,
   Image,
   TouchableHighlight,
-  Pressable
+  Pressable,
 } from "react-native";
 import imagePicker from "react-native-image-picker";
 import { Picker } from "@react-native-picker/picker";
@@ -50,31 +50,63 @@ async function uploadImageAsync(filepath, uri) {
     xhr.send(null);
   });
   const fileRef = storageRef(getStorage(), filepath);
-  const result = await uploadBytes(fileRef, blob);
-
+  uploadBytes(fileRef, blob).then(async (snapshot) => {
+    getDownloadURL(fileRef).then(async (url) => {
+      blob.close();
+      console.log(url);
+      return url;
+    });
+  });
   // We're done with the blob, close and release it
-  blob.close();
 }
 
-function addPostToDB(title, author, description, genre,location, image_File) {
+async function addPostToDB(
+  title,
+  author,
+  description,
+  genre,
+  location,
+  image_File
+) {
   var postId = auth.currentUser.uid + Date.now();
-  var filepath = postId + title;
-  uploadImageAsync(filepath + ".png", image_File);
-  const db = getDatabase(Firebase);
-  const postRef = ref(db, "posts/" + postId);
-  set(postRef, {
-    userId: auth.currentUser.uid,
-    bookId: filepath,
-    date: Date.now(),
+  var filepathX = postId + title;
+  var uri = image_File;
+  var filepath = filepathX;
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError("Network request failed"));
+    };
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
   });
-  const bookRef = ref(db, "books/" + filepath);
-  set(bookRef, {
-    Title: title,
-    Author: author,
-    Description: description,
-    Genre: genre,
-    BookCover: filepath + ".png",
-    Location: location
+  const fileRef = storageRef(getStorage(), filepath);
+  uploadBytes(fileRef, blob).then(async (snapshot) => {
+    getDownloadURL(fileRef).then(async (url) => {
+      blob.close();
+      console.log(url);
+      const db = getDatabase(Firebase);
+      const postRef = ref(db, "posts/" + postId);
+      set(postRef, {
+        userId: auth.currentUser.uid,
+        bookId: filepathX,
+        date: Date.now(),
+      });
+      const bookRef = ref(db, "books/" + filepathX);
+      set(bookRef, {
+        title: title,
+        author: author,
+        description: description,
+        genre: genre,
+        bookCover: url,
+        location: location,
+      });
+    });
   });
 }
 
@@ -104,7 +136,7 @@ const AddPost = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [3, 4],
       quality: 1,
     });
     setFile(result.file);
@@ -116,25 +148,25 @@ const AddPost = () => {
 
   return (
     <View style={styles.postContainer}>
-      <View style={{
-        backgroundColor: '#00D6D8',
-        alignItems: 'center',
-        justifyContent:'center',
-        width: '85%',
-        height: 50,
-        borderRadius: 0,
-      }}>
-          <Text
-            style={{
-              alignItems: "center",
-              fontSize: 20,
-            }}
-          >
-            Add New Book
-          </Text>
-
+      <View
+        style={{
+          backgroundColor: "#00D6D8",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "85%",
+          height: 50,
+          borderRadius: 0,
+        }}
+      >
+        <Text
+          style={{
+            alignItems: "center",
+            fontSize: 20,
+          }}
+        >
+          Add New Post
+        </Text>
       </View>
-
 
       {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Button title="Pick an image from camera roll" onPress={pickImage} />
@@ -193,29 +225,29 @@ const AddPost = () => {
         value={location}
       />
 
-      <Pressable style={{
-        backgroundColor: '#00D6D8',
-        height: 50,
-        width: 150,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 15,
-        borderRadius: 10,
-      }}
-      onPress={() => {
-        addPostToDB(title, author, description, pickValue,location, image);
-        console.log(title, author, description, pickValue, image);
-      }}
+      <Pressable
+        style={{
+          backgroundColor: "#00D6D8",
+          height: 50,
+          width: 150,
+          alignItems: "center",
+          justifyContent: "center",
+          margin: 15,
+          borderRadius: 10,
+        }}
+        onPress={() => {
+          addPostToDB(title, author, description, pickValue, location, image);
+        }}
       >
-        <Text style={{
-          fontSize: 20,
-          color: 'white'
-        }}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: "white",
+          }}
+        >
           Add Book
         </Text>
       </Pressable>
-
-      
 
       {/* {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
@@ -239,10 +271,10 @@ const styles = StyleSheet.create({
     width: "85%",
     height: 60,
     borderRadius: 5,
-    backgroundColor: '#EDEFF3',
-    alignItems: 'center',
+    backgroundColor: "#EDEFF3",
+    alignItems: "center",
     paddingLeft: 15,
-    margin: 10
+    margin: 10,
   },
 });
 

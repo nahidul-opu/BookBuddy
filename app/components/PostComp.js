@@ -12,16 +12,17 @@ import React from "react";
 import colors from "../config/colors";
 
 export default function PostComp({ postInfo }) {
+  console.log(postInfo);
   return (
     <TouchableOpacity style={styles.postContainer}>
-      <Image style={styles.bookImage} source={{ url: postInfo.BookCover }} />
+      <Image source={{ uri: postInfo.bookCover }} style={styles.bookImage} />
       <View style={styles.bookDetail}>
         <Text
           style={{
             fontSize: 40,
           }}
         >
-          {postInfo.Title}
+          {postInfo.title}
         </Text>
         <Text
           style={{
@@ -29,7 +30,7 @@ export default function PostComp({ postInfo }) {
             color: "blue",
           }}
         >
-          {postInfo.writer}
+          {postInfo.author}
         </Text>
         <Text
           style={{
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
 
   bookImage: {
-    height: 280,
+    height: 200,
     width: "50%",
     margin: 10,
   },

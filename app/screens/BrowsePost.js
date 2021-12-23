@@ -55,7 +55,6 @@ export default function BrowsePost({ navigation }) {
         var item = childSnapshot.val();
         item.key = childSnapshot.key;
         var bookItem;
-        const db = getDatabase(Firebase);
         const reference = ref(db, "books/" + item["bookId"]);
         onValue(reference, async (snapshot) => {
           bookItem = snapshot.val();
@@ -66,6 +65,7 @@ export default function BrowsePost({ navigation }) {
       setLoaded(true);
     });
   }, []);
+
   return (
     <View
       style={{
@@ -73,7 +73,9 @@ export default function BrowsePost({ navigation }) {
       }}
     >
       {isLoaded === true
-        ? posts.map((element, index) => <PostComp postInfo={element} />)
+        ? posts.map((element, index) => (
+            <PostComp key={index} postInfo={element} />
+          ))
         : null}
     </View>
   );

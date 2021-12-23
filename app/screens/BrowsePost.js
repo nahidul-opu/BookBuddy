@@ -67,6 +67,7 @@ export default function BrowsePost({ navigation }) {
         {isLoaded === true
           ? posts.map((element, index) => (
               <TouchableOpacity
+                key={index}
                 onPress={() => navigation.navigate("Post Details", element)}
               >
                 <PostComp key={index} postInfo={element} />

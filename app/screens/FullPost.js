@@ -12,7 +12,7 @@ import React from "react";
 import colors from "../config/colors";
 
 
-const FullPost = () => {
+const FullPost = ({postDetail}) => {
     <View>
         
     </View>

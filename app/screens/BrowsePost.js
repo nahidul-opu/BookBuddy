@@ -72,7 +72,7 @@ export default function BrowsePost({ navigation }) {
       style={{
         flexDirection: 'column',
         backgroundColor: 'white',
-        paddingTop: StatusBar.currentHeight+10,
+        paddingTop: StatusBar.currentHeight,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',

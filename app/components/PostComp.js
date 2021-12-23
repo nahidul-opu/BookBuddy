@@ -18,32 +18,12 @@ import {
 import colors from "../config/colors";
 import Firebase from "../config/firebase";
 
-const auth = Firebase.auth();
-async function get_image(path) {
-  var reference = storageRef(getStorage(), path);
-  var bookCoverPath;
-  getDownloadURL(reference)
-    .then((url) => {
-      console.log(url);
-      bookCoverPath = url;
-    })
-    .catch((error) => {
-      console.log("error");
-    });
-  console.log(bookCoverPath);
-  return bookCoverPath;
-}
 export default function PostComp({ postInfo }) {
-  console.log(postInfo);
-  var bookCoverPath = get_image(postInfo.BookCover);
-
   return (
     <TouchableOpacity style={styles.postContainer}>
       <Image
         style={styles.bookImage}
-        source={{
-          uri: "https://picsum.photos/200/300",
-        }}
+        source={require("../assets/gitanjali.png")}
       />
       <View style={styles.bookDetail}>
         <Text

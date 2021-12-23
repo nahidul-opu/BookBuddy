@@ -48,7 +48,6 @@ export default function BrowsePost({ navigation }) {
   onValue(reference, (snapshot) => {
     posts = snapshotToArray(snapshot);
   });
-  console.log(posts);
   return (
     <View
       style={{

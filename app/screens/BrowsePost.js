@@ -76,7 +76,8 @@ export default function BrowsePost({ navigation }) {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 15
+        padding: 15,
+        
 
       }}> 
       <SearchBar inpColor={'white'}/>

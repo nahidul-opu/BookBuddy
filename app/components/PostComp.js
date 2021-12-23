@@ -26,6 +26,7 @@ export default function PostComp({ postInfo }) {
           style={{
             fontSize: 30,
             marginBottom:5,
+            
           }}
         >
           {postInfo.title}
@@ -65,16 +66,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
-    
-    // marginLeft:20,
-    // marginRight:20,
+    borderWidth: 0.5,
     marginBottom: 15,
-
+    padding: 2
     
   },
 
   bookImage: {
-    height: 200,
+    height: '100%',
     width: "40%",
     // margin: 5
     //marginRight: 10

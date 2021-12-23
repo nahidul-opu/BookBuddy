@@ -3,9 +3,13 @@
 import * as React from "react";
 import { View, Text, ScrollView, StatusBar } from "react-native";
 import { getDatabase, ref, onValue } from "@firebase/database";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Firebase from "../config/firebase";
 import SearchBar from "../components/SearchBar";
 import PostComp from "../components/PostComp";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const auth = Firebase.auth();
 
@@ -89,8 +93,11 @@ export default function BrowsePost({ navigation }) {
         {isLoaded === true
           ? posts.map((element, index) => (
             
-              <PostComp key={index} postInfo={element} />
               
+              
+              <TouchableOpacity onPress={()=>navigation.navigate("Post Details",element)}>
+                <PostComp key={index} postInfo={element} />
+              </TouchableOpacity>
             ))
           : null}
 

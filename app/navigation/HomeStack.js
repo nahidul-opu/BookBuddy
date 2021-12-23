@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 import Profile from "../screens/Profile";
 import BrowsePost from "../screens/BrowsePost";
 import AddPost from "../screens/AddPost";
+import tempPost from "../screens/tempPost";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   FontAwesome5,
@@ -19,7 +21,7 @@ export default function HomeStack() {
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name="Posts"
-        component={BrowsePost}
+        component={tempPost}
         options={{
           title: "Posts",
           tabBarIcon: ({ tintColor, focused }) => (

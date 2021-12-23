@@ -19,18 +19,45 @@ function checkFirstLogin() {
   });
   return verified;
 }
+
+function snapshotToArray(snapshot) {
+  var returnArr = [];
+
+  snapshot.forEach(function (childSnapshot) {
+    var item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    var bookItem;
+    const db = getDatabase(Firebase);
+    const reference = ref(db, "books/" + item["bookId"]);
+    onValue(reference, (snapshot) => {
+      bookItem = snapshot.val();
+    });
+    returnArr.push({ ...item, ...bookItem });
+  });
+
+  return returnArr;
+}
+
 export default function BrowsePost({ navigation }) {
   /*if (checkFirstLogin() === false) {
     navigation.navigate("Profile");
   }*/
+  var posts;
+  const db = getDatabase(Firebase);
+  const reference = ref(db, "posts/");
+  onValue(reference, (snapshot) => {
+    posts = snapshotToArray(snapshot);
+  });
+  console.log(posts);
   return (
     <View
       style={{
         padding: 10,
       }}
     >
-      <PostComp />
-      <PostComp />
+      {posts.map((element, index) => (
+        <PostComp postInfo={element} />
+      ))}
     </View>
   );
 }

@@ -48,7 +48,6 @@ async function uploadImageAsync(filepath, uri) {
     xhr.open("GET", uri, true);
     xhr.send(null);
   });
-  const storage = getStorage(Firebase);
   const fileRef = storageRef(getStorage(), filepath);
   const result = await uploadBytes(fileRef, blob);
 

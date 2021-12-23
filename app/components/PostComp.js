@@ -9,29 +9,41 @@ import {
 } from "react-native";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import React from "react";
-
+import {
+  ref as storageRef,
+  getStorage,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 import colors from "../config/colors";
+import Firebase from "../config/firebase";
 
-var postInfo = {
-  pos1: {
-    imageSrc: "../assets/gitanjali.png",
-    bookName: "Gitanjali",
-    writer: "Rabindra Nath Tagore",
-    description:
-      "Gitanjali is a collection of poems by the Bengali poet Rabindranath Tagore. Tagore received the Nobel Prize for Literature, largely for the English translation, Song Offerings. It is part of the UNESCO Collection of Representative Works.",
-  },
-};
+const auth = Firebase.auth();
+async function get_image(path) {
+  var reference = storageRef(getStorage(), path);
+  var bookCoverPath;
+  getDownloadURL(reference)
+    .then((url) => {
+      console.log(url);
+      bookCoverPath = url;
+    })
+    .catch((error) => {
+      console.log("error");
+    });
+  console.log(bookCoverPath);
+  return bookCoverPath;
+}
+export default function PostComp({ postInfo }) {
+  console.log(postInfo);
+  var bookCoverPath = get_image(postInfo.BookCover);
 
-// console.log(postInfo.pos1.imageSrc)
-const PostComp = () => {
-  // console.log(postInfo.pos1.imageSrc)
-  // console.log(typeof('../assets/gitanjali.png'))
-  // console.log(typeof(postInfo.pos1.imageSrc))
   return (
     <TouchableOpacity style={styles.postContainer}>
       <Image
         style={styles.bookImage}
-        source={require("../assets/gitanjali.png")}
+        source={{
+          uri: "https://picsum.photos/200/300",
+        }}
       />
       <View style={styles.bookDetail}>
         <Text
@@ -39,7 +51,7 @@ const PostComp = () => {
             fontSize: 40,
           }}
         >
-          {postInfo.pos1.bookName}
+          {postInfo.Title}
         </Text>
         <Text
           style={{
@@ -47,7 +59,7 @@ const PostComp = () => {
             color: "blue",
           }}
         >
-          {postInfo.pos1.writer}
+          {postInfo.writer}
         </Text>
         <Text
           style={{
@@ -55,12 +67,12 @@ const PostComp = () => {
             color: "gray",
           }}
         >
-          {postInfo.pos1.description}
+          {postInfo.description}
         </Text>
       </View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   postContainer: {
@@ -87,5 +99,3 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
-export default PostComp;

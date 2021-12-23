@@ -9,11 +9,9 @@ import HomeStack from "./HomeStack";
 const auth = Firebase.auth();
 export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
-  const [isLoading, setIsLoading] = useState(true);
   function checkUser(authenticatedUser) {
     if (authenticatedUser && authenticatedUser.emailVerified) {
       setUser(authenticatedUser);
-      setIsLoading(false);
     } else {
       setUser(null);
     }
@@ -24,7 +22,6 @@ export default function RootNavigator() {
       async (authenticatedUser) => {
         try {
           await checkUser(authenticatedUser);
-          setIsLoading(false);
         } catch (error) {
           console.log(error);
         }
@@ -34,14 +31,6 @@ export default function RootNavigator() {
     // unsubscribe auth listener on unmount
     return unsubscribeAuth;
   });
-
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
 
   return (
     <NavigationContainer>

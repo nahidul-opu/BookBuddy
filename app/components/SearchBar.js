@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
 
   searchPart: {
-    backgroundColor: colors.secondary,
+    backgroundColor: '#f2f2f2',
     width: "70%",
     height: "100%",
     borderRadius: 50,

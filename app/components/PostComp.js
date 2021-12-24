@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -7,10 +6,9 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
-import React from "react";
-import colors from "../config/colors";
-import FullPost from "../screens/FullPost";
+import React, { useEffect, useState } from "react";
+import { getDatabase, onValue, ref } from "@firebase/database";
+import Firebase from "../config/firebase";
 
 export default function PostComp({ postInfo }) {
   return (

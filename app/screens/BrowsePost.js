@@ -38,7 +38,6 @@ export default function BrowsePost({ navigation }) {
     const reference = ref(db, "posts/");
     onValue(reference, async (snapshot) => {
       var l = snapshot.size;
-      console.log(l);
       returnArr = [];
       snapshot.forEach(function (childSnapshot) {
         var item = childSnapshot.val();

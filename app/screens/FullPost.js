@@ -24,30 +24,24 @@ import Firebase from "../config/firebase";
 
 const auth = Firebase.auth();
 
-const PostDetails = ({ postInfo }) => {
-  console.log("here here");
-  console.log(postInfo);
-  console.log(postInfo.bookCover);
-  return (
-    <View
-      style={{
-        height: 500,
-        width: "100%",
-        backgroundColor: "blue",
-      }}
-    >
-      <Image source={{ uri: postInfo.bookCover }} />
-      <Text>Hello</Text>
-    </View>
-  );
-};
-
 const FullPost = ({ route, navigation }) => {
   const postInformation = route.params;
-
+  const [newComment, setNewCom] = useState("");
   const [userData, setuserData] = useState(null);
   const [bookmarked, setBookmarked] = useState(null);
+  const [postOwner, setPostOwner] = useState(null);
+  const [comments, setComments] = useState(null);
+
   useEffect(() => {
+    const poreference = ref(
+      getDatabase(Firebase),
+      "users/" + postInformation.userId
+    );
+    onValue(poreference, async (usnapshot) => {
+      var uu = usnapshot.val();
+      setPostOwner(uu);
+    });
+
     const reference = ref(
       getDatabase(Firebase),
       "users/" + auth.currentUser.uid
@@ -63,7 +57,25 @@ const FullPost = ({ route, navigation }) => {
         setBookmarked(false);
       }
     });
-  }, []);
+
+    const creference = ref(
+      getDatabase(Firebase),
+      "comments/" + postInformation.key
+    );
+    var comArr = [];
+    onValue(creference, async (snapshot) => {
+      var l = snapshot.size;
+      snapshot.forEach(function (childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+        comArr.push(item);
+        l--;
+        if (l <= 0) {
+          setComments(comArr);
+        }
+      });
+    });
+  }, [newComment]);
 
   function addBookMark() {
     // console.log("clickeddddddddddddddddddddddddddddddddddd");
@@ -93,6 +105,25 @@ const FullPost = ({ route, navigation }) => {
       "users/" + auth.currentUser.uid
     );
     set(reference, userData);
+  }
+
+  function postComment() {
+    if (newComment !== "") {
+      const comRef = ref(
+        getDatabase(Firebase),
+        "comments/" +
+          postInformation.key +
+          "/" +
+          auth.currentUser.uid +
+          Date.now()
+      );
+      set(comRef, {
+        commentor: userData.name,
+        commentorId: auth.currentUser.uid,
+        comment: newComment,
+      });
+    }
+    setNewCom("");
   }
 
   /*console.log(
@@ -184,7 +215,7 @@ const FullPost = ({ route, navigation }) => {
                 marginLeft: 20,
               }}
             >
-              {"A S M Mofakkharul Islam"}
+              {postOwner ? postOwner.name : postInformation.userId}
               {/* {bookmarked !== null ? (
                 <Button
                   onPress={() => addBookMark()}
@@ -232,8 +263,11 @@ const FullPost = ({ route, navigation }) => {
               Comments:
             </Text>
           </View>
-          <CommentComp />
-          <CommentComp />
+          {comments
+            ? comments.map((element, index) => (
+                <CommentComp key={index} postInfo={element} />
+              ))
+            : null}
           <View
             style={{
               flexDirection: "row",
@@ -267,6 +301,8 @@ const FullPost = ({ route, navigation }) => {
               <TextInput
                 placeholder="add a comment"
                 style={{ fontSize: 15, marginRight: 30 }}
+                value={newComment}
+                onChangeText={(text) => setNewCom(text)}
               />
             </View>
             <TouchableOpacity
@@ -286,6 +322,7 @@ const FullPost = ({ route, navigation }) => {
                 name="send-circle"
                 size={50}
                 color="black"
+                onPress={() => postComment()}
                 // style={{ marginLeft: 20 }}
               />
             </TouchableOpacity>

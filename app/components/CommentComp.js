@@ -17,7 +17,9 @@ import colors from "../config/colors";
 import PostDetailComponent from "../components/PostDetailComponent";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
-const CommentComp = () => {
+const CommentComp = (comment) => {
+  comment = comment["postInfo"];
+  console.log(comment);
   return (
     <View
       style={{
@@ -52,7 +54,7 @@ const CommentComp = () => {
             left: 5,
           }}
         >
-          {"Sabiha Islam Munshat"}
+          {comment ? comment.commentor : null}
         </Text>
         <Text
           style={{
@@ -68,9 +70,7 @@ const CommentComp = () => {
             textAlign: "justify",
           }}
         >
-          {
-            'I have a book titled "Maa" written by anisul islam.I have a book titled "Maa" written by anisul islamI have a book titled "Maa" written by anisul islam.'
-          }
+          {comment ? comment.comment : null}
         </Text>
       </View>
 

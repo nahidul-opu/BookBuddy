@@ -24,6 +24,7 @@ function createUserInDB(name, email) {
     name: name,
     email: email,
     verified: false,
+    bookmarks: [],
   });
 }
 

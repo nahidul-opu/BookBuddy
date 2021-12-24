@@ -41,7 +41,6 @@ export default function BrowsePost({ navigation }) {
           }
         });
       });
-      console.log(returnArr.length);
       if (returnArr.length === 0) {
         setReload(true);
       }

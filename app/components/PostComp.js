@@ -14,13 +14,7 @@ import FullPost from "../screens/FullPost";
 
 export default function PostComp({ postInfo }) {
   return (
-    <TouchableOpacity
-      style={styles.postContainer}
-      onPress={
-        // navigation.navigate(FullPost)
-        console.log("pressed")
-      }
-    >
+    <TouchableOpacity style={styles.postContainer}>
       <Image source={{ uri: postInfo.bookCover }} style={styles.bookImage} />
       <View style={styles.bookDetail}>
         <Text

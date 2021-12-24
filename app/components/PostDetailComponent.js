@@ -11,7 +11,6 @@ import {
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import colors from "../config/colors";
-
 export default function PostDetailComponent({ postInfo }) {
   return (
     <View style={styles.postContainer}>

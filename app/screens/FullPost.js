@@ -6,17 +6,21 @@ import {
   TouchableOpacity,
   Image,
   StatusBar,
+  Button,
 } from "react-native";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-import React from "react";
+import { MaterialCommunityIcons, Foundation } from "@expo/vector-icons";
+import { ref, getDatabase, onValue, set } from "@firebase/database";
+import React, { useState, useEffect } from "react";
 import colors from "../config/colors";
 import PostDetailComponent from "../components/PostDetailComponent";
 import CommentComp from "../components/CommentComp";
+import Firebase from "../config/firebase";
+
+const auth = Firebase.auth();
 
 const PostDetails = ({ postInfo }) => {
   console.log("here here");
@@ -38,10 +42,60 @@ const PostDetails = ({ postInfo }) => {
 
 const FullPost = ({ route, navigation }) => {
   const postInformation = route.params;
-  console.log(
+
+  const [userData, setuserData] = useState(null);
+  const [bookmarked, setBookmarked] = useState(null);
+  useEffect(() => {
+    const reference = ref(
+      getDatabase(Firebase),
+      "users/" + auth.currentUser.uid
+    );
+    onValue(reference, async (snapshot) => {
+      var u = await snapshot.val();
+      setuserData(u);
+      if (u["bookmarks"] === null || u["bookmarks"] === undefined) {
+        setBookmarked(false);
+      } else if (u["bookmarks"].includes(postInformation.key)) {
+        setBookmarked(true);
+      } else {
+        setBookmarked(false);
+      }
+    });
+  }, []);
+
+  function addBookMark() {
+    if (userData === null) return;
+    if (bookmarked === false) {
+      if (
+        userData["bookmarks"] === null ||
+        userData["bookmarks"] === undefined
+      ) {
+        userData["bookmarks"] = [postInformation.key];
+      } else {
+        userData["bookmarks"].push(postInformation.key);
+      }
+      setBookmarked(true);
+    } else if (
+      userData["bookmarks"] !== null &&
+      userData["bookmarks"] !== undefined
+    ) {
+      const index = userData["bookmarks"].indexOf(postInformation.key);
+      if (index > -1) {
+        userData["bookmarks"].splice(index, 1);
+      }
+      setBookmarked(false);
+    }
+    const reference = ref(
+      getDatabase(Firebase),
+      "users/" + auth.currentUser.uid
+    );
+    set(reference, userData);
+  }
+
+  /*console.log(
     "full post %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n",
     postInformation
-  );
+  );*/
   return (
     <View
       style={{
@@ -80,6 +134,13 @@ const FullPost = ({ route, navigation }) => {
           style={{ fontSize: 20, color: "blue", width: 200, marginLeft: 20 }}
         >
           {"A S M Mofakkharul Islam"}
+          {bookmarked !== null ? (
+            <Button
+              onPress={() => addBookMark()}
+              title={bookmarked ? "-" : "+"}
+              size={28}
+            />
+          ) : null}
         </Text>
       </View>
 

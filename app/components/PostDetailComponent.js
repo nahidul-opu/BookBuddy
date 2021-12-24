@@ -80,7 +80,9 @@ const styles = StyleSheet.create({
   },
   bookDetail: {
     backgroundColor: "#f2f2f2", //'#ebebeb',
+    // backgroundColor: "blue",
     height: 230,
+    width: "55%",
     // width: 210,
     borderRadius: 10,
     flexDirection: "column",

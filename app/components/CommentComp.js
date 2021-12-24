@@ -15,26 +15,32 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import colors from "../config/colors";
 import PostDetailComponent from "../components/PostDetailComponent";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 const CommentComp = () => {
   return (
     <View
       style={{
-        width: "95%",
+        width: "85%",
         flexDirection: "row",
         position: "relative",
+        // backgroundColor: "red",
         left: 20,
         top: 40,
+        marginBottom: 10,
+
+        borderRadius: 25,
       }}
     >
       <FontAwesome5 name="user-circle" size={50} color="black" />
       <View
         style={{
           //   height: 80,
-          width: "60%",
-          backgroundColor: "#f2f2f2",
+          width: "70%",
+          backgroundColor: "#e8f2fd",
           marginLeft: 10,
           borderRadius: 10,
+          borderWidth: 0.3,
         }}
       >
         <Text
@@ -43,7 +49,7 @@ const CommentComp = () => {
             color: "blue",
             position: "relative",
             top: 5,
-            left: 2,
+            left: 5,
           }}
         >
           {"Sabiha Islam Munshat"}
@@ -57,30 +63,33 @@ const CommentComp = () => {
             // height: "100%",
             // backgroundColor: "red",
             marginBottom: 10,
-            flexShrink: 1,
+            // marginRight: 10,
+            // flexShrink: 1,
             textAlign: "justify",
           }}
         >
           {
-            'I have a book titled "Maa" written by anisul islam.I have a book titled "Maa" written by anisul islamI have a book titled "Maa" written by anisul islam'
+            'I have a book titled "Maa" written by anisul islam.I have a book titled "Maa" written by anisul islamI have a book titled "Maa" written by anisul islam.'
           }
         </Text>
       </View>
-      <View
+
+      {/* <TouchableOpacity
         style={{
           height: 50,
           width: 50,
           borderRadius: 50,
-          backgroundColor: "orange",
+          backgroundColor: "#CDDEFF",
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
           top: 10,
           left: 10,
+          borderWidth: 0.5,
         }}
       >
         <FontAwesome name="exchange" size={24} color="black" />
-      </View>
+      </TouchableOpacity> */}
     </View>
   );
 };

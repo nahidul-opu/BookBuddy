@@ -4,6 +4,8 @@ import Profile from "../screens/Profile";
 import BooksView from "../screens/BooksView";
 import AddPost from "../screens/AddPost";
 import tempPost from "../screens/tempPost";
+import tempBookmarkPost from "../screens/tempBookmarkPost";
+import Bookmarks from "../screens/Bookmarks";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -63,7 +65,7 @@ export default function HomeStack() {
       />
       <Tab.Screen
         name="Bookmarks"
-        component={AddPost}
+        component={tempBookmarkPost}
         options={{
           title: "Bookmarks",
           tabBarIcon: ({ tintColor, focused }) => (

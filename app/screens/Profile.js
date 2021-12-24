@@ -5,6 +5,7 @@ import {
   View,
   StatusBar,
   ImageBackground,
+  TouchableOpacity,
   Image,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -88,14 +89,6 @@ export default function Profile() {
         >
           A S M Mofakkharul Islam Mohammud Esaque Ali Rukon
         </Text>
-
-        {/* <ImageBackground
-        source={{
-          uri: "https://picsum.photos/200/300",
-        }}
-        // resizeMode="cover"
-        style={{ height: "100%", width: "100%" }}
-      ></ImageBackground> */}
       </View>
 
       {/* total post and total exhange */}
@@ -155,14 +148,14 @@ export default function Profile() {
       >
         {/* for each optons */}
         {/* history */}
-        <View
+        <TouchableOpacity
           style={{
             backgroundColor: colors.options,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
             borderRadius: 15,
-            height: 60,
+            height: 50,
             marginTop: 20,
             // position: "relative",
             // top: 30,
@@ -170,21 +163,21 @@ export default function Profile() {
         >
           {/* for icon */}
           <View style={styles.forIcon}>
-            <FontAwesome name="history" size={40} color="black" />
+            <FontAwesome name="history" size={30} color="black" />
           </View>
           <View style={styles.forText}>
-            <Text style={{ fontSize: 25 }}>History</Text>
+            <Text style={{ fontSize: 22 }}>History</Text>
           </View>
-        </View>
+        </TouchableOpacity>
         {/* settings */}
-        <View
+        <TouchableOpacity
           style={{
             backgroundColor: colors.options,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
             borderRadius: 15,
-            height: 60,
+            height: 50,
             marginTop: 10,
             // position: "relative",
             // top: 30,
@@ -192,22 +185,22 @@ export default function Profile() {
         >
           {/* for icon */}
           <View style={styles.forIcon}>
-            <Ionicons name="settings-sharp" size={40} color="black" />
+            <Ionicons name="settings-sharp" size={30} color="black" />
           </View>
           <View style={styles.forText}>
-            <Text style={{ fontSize: 25 }}>Settings</Text>
+            <Text style={{ fontSize: 22 }}>Settings</Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
         {/* Edit Profile */}
-        <View
+        <TouchableOpacity
           style={{
             backgroundColor: colors.options,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
             borderRadius: 15,
-            height: 60,
+            height: 50,
             marginTop: 10,
             // position: "relative",
             // top: 30,
@@ -216,21 +209,21 @@ export default function Profile() {
           {/* for icon */}
           <View style={styles.forIcon}>
             {/* <FontAwesome name="history" size={40} color="black" /> */}
-            <FontAwesome5 name="user-edit" size={35} color="black" />
+            <FontAwesome5 name="user-edit" size={25} color="black" />
           </View>
           <View style={styles.forText}>
-            <Text style={{ fontSize: 25 }}>Edit Profile</Text>
+            <Text style={{ fontSize: 22 }}>Edit Profile</Text>
           </View>
-        </View>
+        </TouchableOpacity>
         {/* Log Out */}
-        <View
+        <TouchableOpacity
           style={{
             backgroundColor: colors.options,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
             borderRadius: 15,
-            height: 60,
+            height: 50,
             marginTop: 10,
             marginBottom: 20,
             // position: "relative",
@@ -240,12 +233,12 @@ export default function Profile() {
           {/* for icon */}
           <View style={styles.forIcon}>
             {/* <FontAwesome name="history" size={40} color="black" /> */}
-            <Entypo name="log-out" size={40} color="black" />
+            <Entypo name="log-out" size={30} color="black" />
           </View>
           <View style={styles.forText}>
-            <Text style={{ fontSize: 25 }}>Log Out</Text>
+            <Text style={{ fontSize: 22 }}>Log Out</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -284,7 +277,7 @@ const styles = StyleSheet.create({
     width: "75%",
     justifyContent: "center",
     alignItems: "flex-start",
-    left: 20,
+    left: 8,
     borderRadius: 20,
     // flexGrow: 1,
   },

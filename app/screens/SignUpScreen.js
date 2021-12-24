@@ -76,7 +76,7 @@ export default function SignupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark-content" />
-      <Text style={styles.title}>Sign Up</Text>
+      {/* <Text style={styles.title}>Sign Up</Text> */}
       <InputField
         inputStyle={{
           fontSize: 14,
@@ -146,7 +146,7 @@ export default function SignupScreen({ navigation }) {
       }
       <Button
         onPress={onHandleSignup}
-        backgroundColor="rgba(0,214,216,0.1)"
+        backgroundColor="#CEF8F8"
         title="Create Account"
         titleColor="#00D6D8"
         titleSize={16}
@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     paddingTop: 0,
     paddingHorizontal: 12,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 24,

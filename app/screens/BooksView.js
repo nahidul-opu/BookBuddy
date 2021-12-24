@@ -11,6 +11,7 @@ import SearchBar from "../components/SearchBar";
 import BookComp from "../components/BookComp";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CircularProgressTracker from "../components/CircularProgressTracker";
+import colors from "../config/colors";
 
 const auth = Firebase.auth();
 const db = getDatabase(Firebase);
@@ -44,12 +45,12 @@ export default function BrowseBooks({ navigation }) {
   return (
     <View
       style={{
-        backgroundColor: "white",
+        backgroundColor: colors.background,
         paddingTop: StatusBar.currentHeight,
         flex: 1,
       }}
     >
-      <SearchBar inpColor={"white"} />
+      <SearchBar />
 
       <ScrollView
         contentContainerStyle={{

@@ -31,6 +31,7 @@ import colors from "../config/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getDatabase, ref, set } from "@firebase/database";
 import Firebase from "../config/firebase";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const auth = Firebase.auth();
 
@@ -179,7 +180,7 @@ const AddPost = () => {
             width: 150,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#EDEFF3",
+            backgroundColor: colors.input,
             margin: 20,
             borderRadius: 10,
           }}
@@ -219,9 +220,22 @@ const AddPost = () => {
           onValueChange={(itemValue) => setPickValue(itemValue)}
         >
           <Picker.Item label="Action" value="Action" />
-          <Picker.Item label="Thriller" value="Thriller" />
+          <Picker.Item label="Biography" value="Biography" />
           <Picker.Item label="Comedy" value="Comedy" />
-          <Picker.Item label="Academic" value="Academic" />
+          <Picker.Item label="Classics" value="Classics" />
+          <Picker.Item label="Comic Book" value="Comic Book" />
+          <Picker.Item
+            label="Detective and Mystery"
+            value="Detective and Mystery"
+          />
+          <Picker.Item label="Fantasy" value="Fantasy" />
+          <Picker.Item label="History" value="History" />
+          <Picker.Item label="Horror" value="Horror" />
+          <Picker.Item label="Poetry" value="Poetry" />
+          <Picker.Item label="Romance" value="Romance" />
+          <Picker.Item label="Science Fiction" value="Science Fiction" />
+
+          <Picker.Item label="Thriller" value="Thriller" />
         </Picker>
 
         <TextInput
@@ -271,13 +285,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    marginBottom: 100,
   },
 
   inputTextDesign: {
     width: "85%",
     height: 60,
     borderRadius: 5,
-    backgroundColor: "#EDEFF3",
+    backgroundColor: colors.input,
     alignItems: "center",
     paddingLeft: 15,
     margin: 10,

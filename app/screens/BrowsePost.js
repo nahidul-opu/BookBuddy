@@ -61,15 +61,17 @@ export default function BrowsePost({ navigation }) {
     <View
       style={{
         flexDirection: "column",
-        backgroundColor: colors.backgroundColor,
+        backgroundColor: colors.background,
         paddingTop: StatusBar.currentHeight,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        padding: 15,
+        // padding: 15,
+        paddingLeft: 15,
+        paddingRight: 15,
       }}
     >
-      <SearchBar inpColor={"white"} />
+      <SearchBar />
 
       <ScrollView
         style={{}}

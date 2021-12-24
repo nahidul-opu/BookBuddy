@@ -9,6 +9,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { getDatabase, onValue, ref } from "@firebase/database";
 import Firebase from "../config/firebase";
+import colors from "../config/colors";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export default function PostComp({ postInfo }) {
   return (
@@ -43,9 +45,9 @@ export default function PostComp({ postInfo }) {
             textAlign: "justify",
           }}
         >
-          {/* {postInfo.description.length >= 350
+          {postInfo.description.length >= 350
             ? postInfo.description.slice(0, 350) + "..."
-            : postInfo.description} */}
+            : postInfo.description}
         </Text>
       </View>
     </TouchableOpacity>
@@ -54,7 +56,7 @@ export default function PostComp({ postInfo }) {
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: "#f2f2f2", //'#ebebeb',
+    backgroundColor: colors.soft, //'#ebebeb',
     width: "100%",
     height: 200,
     borderRadius: 10,
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   bookDetail: {
-    backgroundColor: "#f2f2f2", //'#ebebeb',
+    backgroundColor: colors.soft, //'#ebebeb',
     height: "100%",
     width: "56%",
     borderRadius: 10,

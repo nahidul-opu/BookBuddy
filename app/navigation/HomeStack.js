@@ -5,6 +5,7 @@ import BooksView from "../screens/BooksView";
 import AddPost from "../screens/AddPost";
 import tempPost from "../screens/tempPost";
 import tempBookmarkPost from "../screens/tempBookmarkPost";
+import colors from "../config/colors";
 import Bookmarks from "../screens/Bookmarks";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -29,7 +30,7 @@ export default function HomeStack() {
           tabBarIcon: ({ tintColor, focused }) => (
             <FontAwesome5
               name={focused ? "squarespace" : "squarespace"}
-              color={focused ? "blue" : "black"}
+              color={focused ? "#00c9cc" : "black"}
               size={28}
             />
           ),
@@ -43,7 +44,7 @@ export default function HomeStack() {
           tabBarIcon: ({ tintColor, focused }) => (
             <MaterialCommunityIcons
               name={focused ? "bookshelf" : "bookshelf"}
-              color={focused ? "blue" : "black"}
+              color={focused ? "#00c9cc" : "black"}
               size={28}
             />
           ),
@@ -57,7 +58,7 @@ export default function HomeStack() {
           tabBarIcon: ({ tintColor, focused }) => (
             <Entypo
               name={focused ? "plus" : "plus"}
-              color={focused ? "blue" : "black"}
+              color={focused ? "#00c9cc" : "black"}
               size={28}
             />
           ),
@@ -71,7 +72,7 @@ export default function HomeStack() {
           tabBarIcon: ({ tintColor, focused }) => (
             <Foundation
               name={focused ? "book-bookmark" : "book-bookmark"}
-              color={focused ? "blue" : "black"}
+              color={focused ? "#00c9cc" : "black"}
               size={28}
             />
           ),
@@ -85,7 +86,7 @@ export default function HomeStack() {
           tabBarIcon: ({ tintColor, focused }) => (
             <AntDesign
               name={focused ? "user" : "user"}
-              color={focused ? "blue" : "black"}
+              color={focused ? "#00c9cc" : "black"}
               size={28}
             />
           ),

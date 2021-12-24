@@ -22,7 +22,7 @@ export default function PostComp({ bookInfo }) {
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: "#f2f2f2", //'#ebebeb',
+    backgroundColor: colors.soft, //'#ebebeb',
     width: 160,
     height: 230,
     borderRadius: 10,

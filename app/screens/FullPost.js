@@ -140,7 +140,7 @@ const FullPost = ({ route, navigation }) => {
           width: 50,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "white",
+          backgroundColor: colors.primary,
           borderRadius: 50,
           borderColor: "black",
           borderWidth: 0.1,
@@ -160,7 +160,7 @@ const FullPost = ({ route, navigation }) => {
           width: 50,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "white",
+          backgroundColor: colors.primary,
           borderRadius: 50,
           borderColor: "black",
           borderWidth: 0.1,
@@ -177,7 +177,7 @@ const FullPost = ({ route, navigation }) => {
       <ScrollView>
         <View
           style={{
-            // backgroundColor: "blue", //'#ebebeb',
+            backgroundColor: colors.background, //'#ebebeb',
             width: "100%",
             // height: "100%",
             borderRadius: 10,
@@ -304,13 +304,13 @@ const FullPost = ({ route, navigation }) => {
               style={{
                 width: "70%",
                 height: 60,
-                backgroundColor: "#e0e9eb",
+                backgroundColor: colors.soft,
                 // position: "relative",
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 50,
-                borderWidth: 0.05,
-                borderColor: "blue",
+                borderWidth: 0.1,
+                // borderColor: "blue",
                 // top: 100,
                 // left: 0,
               }}

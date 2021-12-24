@@ -15,6 +15,7 @@ import SearchBar from "../components/SearchBar";
 import PostComp from "../components/PostComp";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CircularProgressTracker from "../components/CircularProgressTracker";
+import colors from "../config/colors";
 
 const auth = Firebase.auth();
 const wait = (timeout) => {
@@ -83,7 +84,7 @@ export default function Bookmarks({ navigation }) {
     <View
       style={{
         flexDirection: "column",
-        backgroundColor: "white",
+        backgroundColor: colors.background,
         paddingTop: StatusBar.currentHeight,
         flex: 1,
         alignItems: "center",

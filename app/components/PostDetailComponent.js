@@ -57,7 +57,7 @@ export default function PostDetailComponent({ postInfo }) {
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: "#f2f2f2", //'#ebebeb',
+    backgroundColor: colors.soft, //'#ebebeb',
     width: "95%",
     height: 250,
     borderRadius: 10,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   bookDetail: {
-    backgroundColor: "#f2f2f2", //'#ebebeb',
+    backgroundColor: colors.soft, //'#ebebeb',
     // backgroundColor: "blue",
     height: 230,
     width: "55%",

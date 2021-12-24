@@ -11,8 +11,7 @@ import { Entypo, FontAwesome } from "@expo/vector-icons";
 import React from "react";
 var bgColor;
 import colors from "../config/colors";
-const SearchBar = ({ inpColor }) => {
-  bgColor = inpColor;
+const SearchBar = () => {
   const [text, onChangeText] = React.useState(null);
   //const [number, onChangeNumber] = React.useState(null);
   return (
@@ -21,7 +20,7 @@ const SearchBar = ({ inpColor }) => {
         <FontAwesome
           name="search"
           size={20}
-          color={{ bgColor }}
+          color="black"
           style={{
             padding: "4%",
           }}
@@ -55,16 +54,16 @@ const styles = StyleSheet.create({
   searchBox: {
     height: 50,
     width: "100%",
-    backgroundColor: { bgColor },
+
     alignItems: "flex-start",
     justifyContent: "space-evenly",
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 30,
+    marginBottom: 15,
   },
 
   searchPart: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#a4ebf3",
     width: "70%",
     height: "100%",
     borderRadius: 50,

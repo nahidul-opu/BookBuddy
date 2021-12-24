@@ -39,7 +39,7 @@ const CommentComp = (comment) => {
         style={{
           //   height: 80,
           width: "70%",
-          backgroundColor: "#e8f2fd",
+          backgroundColor: colors.input,
           marginLeft: 10,
           borderRadius: 10,
           borderWidth: 0.3,

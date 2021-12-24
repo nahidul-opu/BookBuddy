@@ -15,6 +15,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MaterialCommunityIcons, Foundation } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { ref, getDatabase, onValue, set } from "@firebase/database";
 import React, { useState, useEffect } from "react";
 import colors from "../config/colors";
@@ -243,7 +244,23 @@ const FullPost = ({ route, navigation }) => {
           </View>
 
           <PostDetailComponent postInfo={postInformation} />
-
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#F38BA0",
+              padding: 5,
+              position: "relative",
+              top: 50,
+              borderRadius: 30,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Ionicons name="ios-close-circle" size={20} color="#FFBCBC" />
+            <Text style={{ fontSize: 15, color: "#FFBCBC" }}>
+              Close This Post
+            </Text>
+          </TouchableOpacity>
           <View
             style={{
               //   backgroundColor: "yellow",

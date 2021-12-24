@@ -17,6 +17,7 @@ import SearchBar from "../components/SearchBar";
 import PostComp from "../components/PostComp";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CircularProgressTracker from "../components/CircularProgressTracker";
+import colors from "../config/colors";
 
 const auth = Firebase.auth();
 const db = getDatabase(Firebase);
@@ -60,7 +61,7 @@ export default function BrowsePost({ navigation }) {
     <View
       style={{
         flexDirection: "column",
-        backgroundColor: "white",
+        backgroundColor: colors.backgroundColor,
         paddingTop: StatusBar.currentHeight,
         flex: 1,
         alignItems: "center",

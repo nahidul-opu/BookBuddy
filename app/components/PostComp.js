@@ -43,9 +43,9 @@ export default function PostComp({ postInfo }) {
             textAlign: "justify",
           }}
         >
-          {postInfo.description.length >= 350
+          {/* {postInfo.description.length >= 350
             ? postInfo.description.slice(0, 350) + "..."
-            : postInfo.description}
+            : postInfo.description} */}
         </Text>
       </View>
     </TouchableOpacity>

@@ -7,7 +7,12 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import { EvilIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 import { IconButton } from "../components";
 import colors from "../config/colors";
@@ -26,24 +31,13 @@ export default function Profile() {
     }
   };
   return (
-    // <View style={styles.container}>
-    //   <StatusBar style="dark-content" />
-    //   <View style={styles.row}>
-    //     <Text style={styles.title}>Welcome {user.email}!</Text>
-    //     <IconButton
-    //       name="logout"
-    //       size={24}
-    //       color="black"
-    //       onPress={handleSignOut}
-    //     />
-    //   </View>
-    //   <Text style={styles.text}>Your UID is: {user.uid} </Text>
-    // </View>
     <View
       style={{
         width: "100%",
         height: "100%",
         backgroundColor: "#e6fffd",
+        // justifyContent: "center",
+        // alignItems: "center",
       }}
     >
       <View
@@ -54,6 +48,8 @@ export default function Profile() {
           backgroundColor: "#A4EBF3",
           margin: 15,
           borderRadius: 20,
+          // position: "absolute",
+          // top: 0,
           // borderWidth: 0.5,
           // borderColor: "blue",
         }}
@@ -102,15 +98,154 @@ export default function Profile() {
       ></ImageBackground> */}
       </View>
 
+      {/* total post and total exhange */}
       <View
         style={{
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
           alignItems: "center",
           flexDirection: "row",
         }}
       >
-        <View style={styles.twoButton}></View>
-        <View style={styles.twoButton}></View>
+        <View style={styles.twoButton}>
+          <Text
+            style={{
+              fontSize: 50,
+            }}
+          >
+            25
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+            }}
+          >
+            Total Post
+          </Text>
+        </View>
+
+        <View style={styles.twoButton}>
+          <Text
+            style={{
+              fontSize: 50,
+            }}
+          >
+            21
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+            }}
+          >
+            Total Exchange
+          </Text>
+        </View>
+      </View>
+
+      {/* options container */}
+      <View
+        style={{
+          // height: 60,
+          // backgroundColor: "green",
+          // flexGrow: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          marginTop: 10,
+        }}
+      >
+        {/* for each optons */}
+        {/* history */}
+        <View
+          style={{
+            backgroundColor: colors.options,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            borderRadius: 15,
+            height: 60,
+            marginTop: 20,
+            // position: "relative",
+            // top: 30,
+          }}
+        >
+          {/* for icon */}
+          <View style={styles.forIcon}>
+            <FontAwesome name="history" size={40} color="black" />
+          </View>
+          <View style={styles.forText}>
+            <Text style={{ fontSize: 25 }}>History</Text>
+          </View>
+        </View>
+        {/* settings */}
+        <View
+          style={{
+            backgroundColor: colors.options,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            borderRadius: 15,
+            height: 60,
+            marginTop: 10,
+            // position: "relative",
+            // top: 30,
+          }}
+        >
+          {/* for icon */}
+          <View style={styles.forIcon}>
+            <Ionicons name="settings-sharp" size={40} color="black" />
+          </View>
+          <View style={styles.forText}>
+            <Text style={{ fontSize: 25 }}>Settings</Text>
+          </View>
+        </View>
+
+        {/* Edit Profile */}
+        <View
+          style={{
+            backgroundColor: colors.options,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            borderRadius: 15,
+            height: 60,
+            marginTop: 10,
+            // position: "relative",
+            // top: 30,
+          }}
+        >
+          {/* for icon */}
+          <View style={styles.forIcon}>
+            {/* <FontAwesome name="history" size={40} color="black" /> */}
+            <FontAwesome5 name="user-edit" size={35} color="black" />
+          </View>
+          <View style={styles.forText}>
+            <Text style={{ fontSize: 25 }}>Edit Profile</Text>
+          </View>
+        </View>
+        {/* Log Out */}
+        <View
+          style={{
+            backgroundColor: colors.options,
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            borderRadius: 15,
+            height: 60,
+            marginTop: 10,
+            marginBottom: 20,
+            // position: "relative",
+            // top: 30,
+          }}
+        >
+          {/* for icon */}
+          <View style={styles.forIcon}>
+            {/* <FontAwesome name="history" size={40} color="black" /> */}
+            <Entypo name="log-out" size={40} color="black" />
+          </View>
+          <View style={styles.forText}>
+            <Text style={{ fontSize: 25 }}>Log Out</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -125,10 +260,32 @@ const styles = StyleSheet.create({
   },
 
   twoButton: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 170,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
+    backgroundColor: colors.options,
+    borderRadius: 20,
+    flexDirection: "column",
+    padding: 15,
+  },
+  forIcon: {
+    height: 50,
+    width: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    marginLeft: 10,
+    // flex: 1,
+  },
+
+  forText: {
+    height: 50,
+    width: "75%",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    left: 20,
+    borderRadius: 20,
+    // flexGrow: 1,
   },
 });

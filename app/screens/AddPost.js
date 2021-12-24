@@ -11,6 +11,7 @@ import {
   Image,
   TouchableHighlight,
   Pressable,
+  ScrollView,
 } from "react-native";
 import imagePicker from "react-native-image-picker";
 import { Picker } from "@react-native-picker/picker";
@@ -140,119 +141,124 @@ const AddPost = () => {
       quality: 1,
     });
     setFile(result.file);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
-
   return (
-    <View style={styles.postContainer}>
-      <View
-        style={{
-          backgroundColor: "#00D6D8",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "85%",
-          height: 50,
-          borderRadius: 0,
-        }}
-      >
-        <Text
+    <ScrollView>
+      <View style={styles.postContainer}>
+        <View
           style={{
+            backgroundColor: "#00D6D8",
             alignItems: "center",
-            fontSize: 20,
+            justifyContent: "center",
+            width: "85%",
+            height: 50,
+            borderRadius: 0,
           }}
         >
-          Add New Post
-        </Text>
-      </View>
+          <Text
+            style={{
+              alignItems: "center",
+              fontSize: 20,
+            }}
+          >
+            Add New Post
+          </Text>
+        </View>
 
-      {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Button title="Pick an image from camera roll" onPress={pickImage} />
                 {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
             </View> */}
-
-      <TouchableOpacity
-        onPress={pickImage}
-        style={{
-          height: 150,
-          width: 150,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#EDEFF3",
-          margin: 20,
-          borderRadius: 10,
-        }}
-      >
-        <Entypo name="camera" size={24} color="black" />
-      </TouchableOpacity>
-
-      <TextInput
-        onChangeText={tileChangeText}
-        placeholder="Title"
-        style={styles.inputTextDesign}
-        value={title}
-      />
-      <TextInput
-        onChangeText={authorChangeText}
-        placeholder="Author Name"
-        style={styles.inputTextDesign}
-        value={author}
-      />
-      <TextInput
-        onChangeText={descriptionChangeText}
-        placeholder="Description About Book"
-        style={styles.inputTextDesign}
-        value={description}
-      />
-
-      <Picker
-        style={styles.inputTextDesign}
-        selectedValue={pickValue}
-        onValueChange={(itemValue) => setPickValue(itemValue)}
-      >
-        <Picker.Item label="Action" value="Action" />
-        <Picker.Item label="Thriller" value="Thriller" />
-        <Picker.Item label="Comedy" value="Comedy" />
-        <Picker.Item label="Academic" value="Academic" />
-      </Picker>
-
-      <TextInput
-        onChangeText={locationChangeText}
-        placeholder="Location"
-        style={styles.inputTextDesign}
-        value={location}
-      />
-
-      <Pressable
-        style={{
-          backgroundColor: "#00D6D8",
-          height: 50,
-          width: 150,
-          alignItems: "center",
-          justifyContent: "center",
-          margin: 15,
-          borderRadius: 10,
-        }}
-        onPress={() => {
-          addPostToDB(title, author, description, pickValue, location, image);
-        }}
-      >
-        <Text
+        <TouchableOpacity
+          onPress={pickImage}
           style={{
-            fontSize: 20,
-            color: "white",
+            height: 150,
+            width: 150,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#EDEFF3",
+            margin: 20,
+            borderRadius: 10,
           }}
         >
-          Add Book
-        </Text>
-      </Pressable>
+          {image === null ? (
+            <Entypo name="camera" size={24} color="black" />
+          ) : (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200 }}
+            />
+          )}
+        </TouchableOpacity>
 
-      {/* {image && (
+        <TextInput
+          onChangeText={tileChangeText}
+          placeholder="Title"
+          style={styles.inputTextDesign}
+          value={title}
+        />
+        <TextInput
+          onChangeText={authorChangeText}
+          placeholder="Author Name"
+          style={styles.inputTextDesign}
+          value={author}
+        />
+        <TextInput
+          onChangeText={descriptionChangeText}
+          placeholder="Description About Book"
+          style={styles.inputTextDesign}
+          value={description}
+        />
+
+        <Picker
+          style={styles.inputTextDesign}
+          selectedValue={pickValue}
+          onValueChange={(itemValue) => setPickValue(itemValue)}
+        >
+          <Picker.Item label="Action" value="Action" />
+          <Picker.Item label="Thriller" value="Thriller" />
+          <Picker.Item label="Comedy" value="Comedy" />
+          <Picker.Item label="Academic" value="Academic" />
+        </Picker>
+
+        <TextInput
+          onChangeText={locationChangeText}
+          placeholder="Location"
+          style={styles.inputTextDesign}
+          value={location}
+        />
+
+        <Pressable
+          style={{
+            backgroundColor: "#00D6D8",
+            height: 50,
+            width: 150,
+            alignItems: "center",
+            justifyContent: "center",
+            margin: 15,
+            borderRadius: 10,
+          }}
+          onPress={() => {
+            addPostToDB(title, author, description, pickValue, location, image);
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "white",
+            }}
+          >
+            Add Book
+          </Text>
+        </Pressable>
+        {/* {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
       )} */}
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 

@@ -1,7 +1,13 @@
 // In App.js in a new project
 
 import * as React from "react";
-import { View, Text, ScrollView, StatusBar } from "react-native";
+import {
+  RefreshControl,
+  View,
+  Text,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import { getDatabase, ref, onValue } from "@firebase/database";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,13 +20,20 @@ import CircularProgressTracker from "../components/CircularProgressTracker";
 
 const auth = Firebase.auth();
 const db = getDatabase(Firebase);
-
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 export default function BrowsePost({ navigation }) {
-  const [reload, setReload] = React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   const [isLoaded, setLoaded] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   React.useEffect(() => {
-    setReload(false);
     var returnArr = [];
     const reference = ref(db, "posts/");
     onValue(reference, async (snapshot) => {
@@ -37,15 +50,11 @@ export default function BrowsePost({ navigation }) {
           if (l <= 0) {
             setPosts(returnArr);
             setLoaded(true);
-            setReload(false);
           }
         });
       });
-      if (returnArr.length === 0) {
-        setReload(true);
-      }
     });
-  }, [reload]);
+  }, [refreshing]);
 
   // console.log('post length '+posts.length)
   return (
@@ -62,7 +71,12 @@ export default function BrowsePost({ navigation }) {
     >
       <SearchBar inpColor={"white"} />
 
-      <ScrollView style={{}}>
+      <ScrollView
+        style={{}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {isLoaded === true ? (
           posts.map((element, index) => (
             <TouchableOpacity

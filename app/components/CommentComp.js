@@ -20,7 +20,6 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 const CommentComp = (comment) => {
   comment = comment["postInfo"];
   var date = new Date(comment.time);
-  console.log(comment);
   return (
     <View
       style={{

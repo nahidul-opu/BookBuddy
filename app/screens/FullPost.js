@@ -8,6 +8,7 @@ import {
   StatusBar,
   Button,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -25,15 +26,21 @@ import Firebase from "../config/firebase";
 
 const auth = Firebase.auth();
 
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 const FullPost = ({ route, navigation }) => {
   const postInformation = route.params;
+  console.log(postInformation);
+  const [refreshing, setRefreshing] = React.useState(false);
   const [newComment, setNewCom] = useState("");
   const [userData, setuserData] = useState(null);
   const [bookmarked, setBookmarked] = useState(null);
   const [postOwner, setPostOwner] = useState(null);
   const [comments, setComments] = useState(null);
   const [closed, setClosed] = useState(null);
-  useEffect(() => {
+
+  async function fetchData() {
     setClosed(postInformation["closed"]);
     const poreference = ref(
       getDatabase(Firebase),
@@ -65,9 +72,9 @@ const FullPost = ({ route, navigation }) => {
       getDatabase(Firebase),
       "comments/" + postInformation.key
     );
-    var comArr = [];
     onValue(creference, async (snapshot) => {
       var l = snapshot.size;
+      var comArr = [];
       snapshot.forEach(function (childSnapshot) {
         var item = childSnapshot.val();
         item.key = childSnapshot.key;
@@ -79,7 +86,20 @@ const FullPost = ({ route, navigation }) => {
         }
       });
     });
-  }, [newComment, closed]);
+  }
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchData();
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+  useEffect(() => {
+    fetchData();
+    const willFocusSubscription = navigation.addListener("focus", () => {
+      fetchData();
+    });
+
+    return willFocusSubscription;
+  }, [newComment, closed, refreshing]);
 
   function compare(a, b) {
     if (a.time < b.time) {
@@ -156,8 +176,8 @@ const FullPost = ({ route, navigation }) => {
       email: userData.email,
       name: userData.name,
       bookmarks: userData.bookmarks,
-      numPost: userData.numPost ? userData.numPost + 1 : 0,
-      numExchange: userData.numExchange ? userData.numExchange + 1 : 0,
+      numPost: userData.numPost,
+      numExchange: userData.numExchange ? userData.numExchange + 1 : 1,
     });
   }
 
@@ -208,7 +228,11 @@ const FullPost = ({ route, navigation }) => {
 
   return (
     <View style={{}}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View
           style={{
             backgroundColor: colors.background, //'#ebebeb',

@@ -30,7 +30,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import colors from "../config/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { getDatabase, ref, set } from "@firebase/database";
+import { getDatabase, ref, set, onValue } from "@firebase/database";
 import Firebase from "../config/firebase";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import CircularProgressTracker from "../components/CircularProgressTracker";
@@ -47,7 +47,7 @@ const AddPost = () => {
   const [pickValue, setPickValue] = React.useState("Action");
   const [image, setImage] = React.useState(null);
   const [uploading, setUploading] = React.useState(false);
-
+  const [userData, setuserData] = useState(null);
   useEffect(() => {
     setImage(null);
     tileChangeText(null);
@@ -64,6 +64,12 @@ const AddPost = () => {
         }
       }
     })();
+
+    const ur = ref(getDatabase(Firebase), "users/" + auth.currentUser.uid);
+    onValue(ur, async (snapshot) => {
+      var u = await snapshot.val();
+      setuserData(u);
+    });
   }, []);
 
   async function addPostToDB(
@@ -125,6 +131,15 @@ const AddPost = () => {
           bookCover: url,
           location: location,
           closed: false,
+        });
+
+        const uref = ref(db, "users/" + auth.currentUser.uid);
+        set(uref, {
+          email: userData.email,
+          name: userData.name,
+          bookmarks: userData.bookmarks,
+          numPost: userData.numPost ? userData.numPost + 1 : 1,
+          numExchange: userData.numExchange,
         });
       });
     });

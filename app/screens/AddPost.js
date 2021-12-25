@@ -33,69 +33,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { getDatabase, ref, set } from "@firebase/database";
 import Firebase from "../config/firebase";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import CircularProgressTracker from "../components/CircularProgressTracker";
 
 const auth = Firebase.auth();
-
-async function addPostToDB(
-  title,
-  author,
-  description,
-  genre,
-  location,
-  image_File
-) {
-  if (
-    title === null ||
-    author === null ||
-    description === null ||
-    location === null ||
-    image_File === null
-  ) {
-    Alert.alert("Eror!", "Please Fill All The Fields", [{ text: "OK" }]);
-    return;
-  }
-  var postId = auth.currentUser.uid + Date.now();
-  var filepathX = postId + title;
-  var uri = image_File;
-  var filepath = filepathX;
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function (e) {
-      console.log(e);
-      reject(new TypeError("Network request failed"));
-    };
-    xhr.responseType = "blob";
-    xhr.open("GET", uri, true);
-    xhr.send(null);
-  });
-  const fileRef = storageRef(getStorage(), filepath);
-  uploadBytes(fileRef, blob).then(async (snapshot) => {
-    getDownloadURL(fileRef).then(async (url) => {
-      blob.close();
-      console.log(url);
-      const db = getDatabase(Firebase);
-      const postRef = ref(db, "posts/" + postId);
-      set(postRef, {
-        userId: auth.currentUser.uid,
-        bookId: filepathX,
-        date: Date.now(),
-      });
-      const bookRef = ref(db, "books/" + filepathX);
-      set(bookRef, {
-        title: title,
-        author: author,
-        description: description,
-        genre: genre,
-        bookCover: url,
-        location: location,
-        closed: false,
-      });
-    });
-  });
-}
 
 const AddPost = () => {
   const [imageFile, setFile] = React.useState(null);
@@ -106,9 +46,15 @@ const AddPost = () => {
 
   const [pickValue, setPickValue] = React.useState("Action");
   const [image, setImage] = React.useState(null);
+  const [uploading, setUploading] = React.useState(false);
 
   useEffect(() => {
     setImage(null);
+    tileChangeText(null);
+    authorChangeText(null);
+    descriptionChangeText(null);
+    setPickValue("Action");
+    locationChangeText(null);
     (async () => {
       if (Platform.OS !== "web") {
         const { status } =
@@ -119,6 +65,70 @@ const AddPost = () => {
       }
     })();
   }, []);
+
+  async function addPostToDB(
+    title,
+    author,
+    description,
+    genre,
+    location,
+    image_File
+  ) {
+    if (
+      title === null ||
+      author === null ||
+      description === null ||
+      location === null ||
+      image_File === null
+    ) {
+      Alert.alert("Eror!", "Please Fill All The Fields", [{ text: "OK" }]);
+      return;
+    }
+    setUploading(true);
+    var postId = auth.currentUser.uid + Date.now();
+    var filepathX = postId + title;
+    var uri = image_File;
+    var filepath = filepathX;
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+    const fileRef = storageRef(getStorage(), filepath);
+    uploadBytes(fileRef, blob).then(async (snapshot) => {
+      getDownloadURL(fileRef).then(async (url) => {
+        Alert.alert("Success!", "Post Uploaded", [{ text: "OK" }]);
+        setUploading(false);
+        blob.close();
+        console.log(url);
+        const db = getDatabase(Firebase);
+        const postRef = ref(db, "posts/" + postId);
+        set(postRef, {
+          userId: auth.currentUser.uid,
+          bookId: filepathX,
+          date: Date.now(),
+        });
+        const bookRef = ref(db, "books/" + filepathX);
+        set(bookRef, {
+          title: title,
+          author: author,
+          description: description,
+          genre: genre,
+          bookCover: url,
+          location: location,
+          closed: false,
+        });
+      });
+    });
+  }
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -273,6 +283,7 @@ const AddPost = () => {
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
       )} */}
       </View>
+      {uploading ? <CircularProgressTracker /> : null}
     </ScrollView>
   );
 };

@@ -41,7 +41,6 @@ export default function BrowseBooks({ navigation }) {
     }
   }, [breload]);
 
-  // console.log('post length '+posts.length)
   return (
     <View
       style={{

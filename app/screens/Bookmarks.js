@@ -79,7 +79,6 @@ export default function Bookmarks({ navigation }) {
     return willFocusSubscription;
   }, [refreshing]);
 
-  // console.log('post length '+posts.length)
   return (
     <View
       style={{

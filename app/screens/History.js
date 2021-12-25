@@ -54,7 +54,6 @@ export default function History({ navigation }) {
     });
   }, [refreshing]);
 
-  // console.log('post length '+posts.length)
   return (
     <View
       style={{

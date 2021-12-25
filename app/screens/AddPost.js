@@ -112,7 +112,6 @@ const AddPost = () => {
     uploadBytes(fileRef, blob).then(async (snapshot) => {
       getDownloadURL(fileRef).then(async (url) => {
         blob.close();
-        console.log(url);
         const db = getDatabase(Firebase);
         const postRef = ref(db, "posts/" + postId);
         set(postRef, {
@@ -135,7 +134,7 @@ const AddPost = () => {
         set(uref, {
           email: userData.email,
           name: userData.name,
-          bookmarks: userData.bookmarks,
+          bookmarks: userData.bookmarks ? userData.bookmarks : [],
           numPost: userData.numPost + 1,
           numExchange: userData.numExchange,
         });
@@ -269,7 +268,6 @@ const AddPost = () => {
               borderRadius: 10,
             }}
             onPress={() => {
-              console.log(image);
               if (image === null) {
                 Alert.alert("Error!", "Please Upload The Book Cover", [
                   { text: "OK" },

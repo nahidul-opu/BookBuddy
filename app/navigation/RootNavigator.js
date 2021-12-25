@@ -11,23 +11,17 @@ export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
 
   useEffect(() => {
-    // onAuthStateChanged returns an unsubscriber
-    const unsubscribeAuth = auth.onAuthStateChanged(
-      async (authenticatedUser) => {
-        try {
-          if (authenticatedUser && authenticatedUser.emailVerified) {
-            setUser(authenticatedUser);
-          } else {
-            setUser(null);
-          }
-        } catch (error) {
-          console.log(error);
-        }
+    var authenticatedUser = auth.currentUser;
+    if (authenticatedUser && authenticatedUser.emailVerified) {
+      setUser(authenticatedUser);
+    }
+    auth.onAuthStateChanged(async (authenticatedUser) => {
+      if (authenticatedUser && authenticatedUser.emailVerified) {
+        setUser(authenticatedUser);
+      } else {
+        setUser(null);
       }
-    );
-
-    // unsubscribe auth listener on unmount
-    return unsubscribeAuth;
+    });
   });
 
   return (

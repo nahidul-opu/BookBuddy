@@ -31,7 +31,6 @@ const wait = (timeout) => {
 };
 const FullPost = ({ route, navigation }) => {
   const postInformation = route.params;
-  console.log(postInformation);
   const [refreshing, setRefreshing] = React.useState(false);
   const [newComment, setNewCom] = useState("");
   const [userData, setuserData] = useState(null);
@@ -112,7 +111,6 @@ const FullPost = ({ route, navigation }) => {
   }
 
   function addBookMark() {
-    // console.log("clickeddddddddddddddddddddddddddddddddddd");
     if (userData === null) return;
     if (bookmarked === false) {
       if (
@@ -180,11 +178,6 @@ const FullPost = ({ route, navigation }) => {
       numExchange: userData.numExchange ? userData.numExchange + 1 : 1,
     });
   }
-
-  /*console.log(
-    "full post %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n",
-    postInformation
-  );*/
 
   const BookMark = () => {
     return (

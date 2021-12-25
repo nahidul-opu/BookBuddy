@@ -111,8 +111,6 @@ const AddPost = () => {
     const fileRef = storageRef(getStorage(), filepath);
     uploadBytes(fileRef, blob).then(async (snapshot) => {
       getDownloadURL(fileRef).then(async (url) => {
-        Alert.alert("Success!", "Post Uploaded", [{ text: "OK" }]);
-        setUploading(false);
         blob.close();
         console.log(url);
         const db = getDatabase(Firebase);
@@ -140,6 +138,9 @@ const AddPost = () => {
           bookmarks: userData.bookmarks,
           numPost: userData.numPost ? userData.numPost + 1 : 1,
           numExchange: userData.numExchange,
+        }).then(() => {
+          Alert.alert("Success!", "Post Uploaded", [{ text: "OK" }]);
+          setUploading(false);
         });
       });
     });

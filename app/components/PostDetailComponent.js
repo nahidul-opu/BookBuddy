@@ -123,8 +123,9 @@ const styles = StyleSheet.create({
   },
 
   bookImage: {
-    height: "100%",
+    height: 240,
     width: "40%",
+    alignSelf: "flex-start",
     // margin: 5
     //marginRight: 10
     borderRadius: 10,

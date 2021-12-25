@@ -6,7 +6,10 @@ export default function LandingScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark-content" />
-      <Image source={require("../assets/logo.png")} style={styles.logo} />
+      <Image
+        source={require("../assets/logo_slogan.png")}
+        style={styles.logo}
+      />
 
       <View style={{ position: "relative", bottom: "10%" }}>
         <Button

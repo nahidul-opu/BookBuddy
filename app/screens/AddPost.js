@@ -136,22 +136,22 @@ const AddPost = () => {
           email: userData.email,
           name: userData.name,
           bookmarks: userData.bookmarks,
-          numPost: userData.numPost ? userData.numPost + 1 : 1,
+          numPost: userData.numPost + 1,
           numExchange: userData.numExchange,
-        }).then(() => {
-          Alert.alert("Success!", "Post Uploaded", [{ text: "OK" }]);
-          setUploading(false);
         });
+        Alert.alert("Success!", "Post Uploaded", [{ text: "OK" }]);
+        setUploading(false);
       });
     });
   }
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [3, 4],
-      quality: 1,
+      maxWidth: 500,
+      maxHeight: 800,
+      mediaType: "photo",
+      quality: 0,
     });
     setFile(result.file);
     if (!result.cancelled) {

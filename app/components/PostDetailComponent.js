@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: colors.soft, //'#ebebeb',
     width: "95%",
-    // height: 250,
+    minHeight: 250,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   bookDetail: {
     backgroundColor: colors.soft, //'#ebebeb',
     // backgroundColor: "blue",
-    height: 230,
+    minHeight: 230,
     width: "55%",
     // width: 210,
     borderRadius: 10,

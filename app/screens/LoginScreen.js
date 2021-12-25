@@ -61,7 +61,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark-content" />
-      {/* <Text style={styles.title}>Log In</Text> */}
+      <Text style={styles.title}>Log In</Text>
       <InputField
         inputStyle={{
           fontSize: 14,
@@ -142,16 +142,17 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingHorizontal: 12,
 
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "600",
+    fontSize: 30,
+    // fontWeight: "600",
     color: colors.black,
-    alignItems: "flex-start",
+    // alignItems: "flex-start",
     paddingBottom: 24,
     paddingLeft: 20,
+    paddingTop: 30,
     fontWeight: "bold",
   },
 });

@@ -77,7 +77,8 @@ export default function SignupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark-content" />
-      {/* <Text style={styles.title}>Sign Up</Text> */}
+      <Text style={styles.title}>Sign Up</Text>
+
       <InputField
         inputStyle={{
           fontSize: 14,
@@ -168,18 +169,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary,
-    paddingTop: 0,
+    paddingTop: 50,
     paddingHorizontal: 12,
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "600",
+    fontSize: 30,
+    // fontWeight: "600",
     color: colors.black,
-    alignItems: "flex-start",
+    // alignItems: "flex-start",
+    // position: "relative",
+    // left: 50,
+    // top: 50,
     paddingBottom: 24,
     paddingLeft: 20,
     fontWeight: "bold",
+    // backgroundColor: "red",
   },
 });

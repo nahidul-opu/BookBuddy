@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   Pressable,
   ScrollView,
+  Alert,
 } from "react-native";
 import imagePicker from "react-native-image-picker";
 import { Picker } from "@react-native-picker/picker";
@@ -35,33 +36,6 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const auth = Firebase.auth();
 
-async function uploadImageAsync(filepath, uri) {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
-  const blob = await new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function (e) {
-      console.log(e);
-      reject(new TypeError("Network request failed"));
-    };
-    xhr.responseType = "blob";
-    xhr.open("GET", uri, true);
-    xhr.send(null);
-  });
-  const fileRef = storageRef(getStorage(), filepath);
-  uploadBytes(fileRef, blob).then(async (snapshot) => {
-    getDownloadURL(fileRef).then(async (url) => {
-      blob.close();
-      console.log(url);
-      return url;
-    });
-  });
-  // We're done with the blob, close and release it
-}
-
 async function addPostToDB(
   title,
   author,
@@ -70,6 +44,16 @@ async function addPostToDB(
   location,
   image_File
 ) {
+  if (
+    title === null ||
+    author === null ||
+    description === null ||
+    location === null ||
+    image_File === null
+  ) {
+    Alert.alert("Eror!", "Please Fill All The Fields", [{ text: "OK" }]);
+    return;
+  }
   var postId = auth.currentUser.uid + Date.now();
   var filepathX = postId + title;
   var uri = image_File;
@@ -107,6 +91,7 @@ async function addPostToDB(
         genre: genre,
         bookCover: url,
         location: location,
+        closed: false,
       });
     });
   });
@@ -123,6 +108,7 @@ const AddPost = () => {
   const [image, setImage] = React.useState(null);
 
   useEffect(() => {
+    setImage(null);
     (async () => {
       if (Platform.OS !== "web") {
         const { status } =
@@ -176,8 +162,8 @@ const AddPost = () => {
         <TouchableOpacity
           onPress={pickImage}
           style={{
-            height: 150,
-            width: 150,
+            height: 180,
+            width: 130,
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: colors.input,
@@ -190,7 +176,7 @@ const AddPost = () => {
           ) : (
             <Image
               source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
+              style={{ width: 130, height: 180 }}
             />
           )}
         </TouchableOpacity>
@@ -244,30 +230,45 @@ const AddPost = () => {
           style={styles.inputTextDesign}
           value={location}
         />
-
-        <Pressable
-          style={{
-            backgroundColor: "#00D6D8",
-            height: 50,
-            width: 150,
-            alignItems: "center",
-            justifyContent: "center",
-            margin: 15,
-            borderRadius: 10,
-          }}
-          onPress={() => {
-            addPostToDB(title, author, description, pickValue, location, image);
-          }}
-        >
-          <Text
+        <TouchableOpacity>
+          <Pressable
             style={{
-              fontSize: 20,
-              color: "white",
+              backgroundColor: "#00D6D8",
+              height: 50,
+              width: 150,
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 15,
+              borderRadius: 10,
+            }}
+            onPress={() => {
+              console.log(image);
+              if (image === null) {
+                Alert.alert("Error!", "Please Upload The Book Cover", [
+                  { text: "OK" },
+                ]);
+                return;
+              }
+              addPostToDB(
+                title,
+                author,
+                description,
+                pickValue,
+                location,
+                image
+              );
             }}
           >
-            Add Book
-          </Text>
-        </Pressable>
+            <Text
+              style={{
+                fontSize: 20,
+                color: "white",
+              }}
+            >
+              Add Book
+            </Text>
+          </Pressable>
+        </TouchableOpacity>
         {/* {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
       )} */}

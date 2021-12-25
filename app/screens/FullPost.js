@@ -32,14 +32,16 @@ const FullPost = ({ route, navigation }) => {
   const [bookmarked, setBookmarked] = useState(null);
   const [postOwner, setPostOwner] = useState(null);
   const [comments, setComments] = useState(null);
-
+  const [closed, setClosed] = useState(null);
   useEffect(() => {
+    setClosed(postInformation["closed"]);
     const poreference = ref(
       getDatabase(Firebase),
       "users/" + postInformation.userId
     );
     onValue(poreference, async (usnapshot) => {
       var uu = usnapshot.val();
+      uu.key = usnapshot.val().key;
       setPostOwner(uu);
     });
 
@@ -72,11 +74,22 @@ const FullPost = ({ route, navigation }) => {
         comArr.push(item);
         l--;
         if (l <= 0) {
+          comArr.sort(compare);
           setComments(comArr);
         }
       });
     });
-  }, [newComment]);
+  }, [newComment, closed]);
+
+  function compare(a, b) {
+    if (a.time < b.time) {
+      return -1;
+    }
+    if (a.time > b.time) {
+      return 1;
+    }
+    return 0;
+  }
 
   function addBookMark() {
     // console.log("clickeddddddddddddddddddddddddddddddddddd");
@@ -122,9 +135,30 @@ const FullPost = ({ route, navigation }) => {
         commentor: userData.name,
         commentorId: auth.currentUser.uid,
         comment: newComment,
+        time: Date.now(),
       });
     }
     setNewCom("");
+  }
+
+  function closePost() {
+    postInformation["closed"] = true;
+    setClosed(true);
+    const clRef = ref(getDatabase(Firebase), "posts/" + postInformation.key);
+    set(clRef, {
+      userId: postInformation.userId,
+      bookId: postInformation.bookId,
+      date: postInformation.date,
+      closed: true,
+    });
+    const uref = ref(getDatabase(Firebase), "users/" + auth.currentUser.uid);
+    set(uref, {
+      email: userData.email,
+      name: userData.name,
+      bookmarks: userData.bookmarks,
+      numPost: userData.numPost ? userData.numPost + 1 : 0,
+      numExchange: userData.numExchange ? userData.numExchange + 1 : 0,
+    });
   }
 
   /*console.log(
@@ -242,44 +276,51 @@ const FullPost = ({ route, navigation }) => {
               )
             ) : null}
           </View>
-
+          <Text>
+            {new Date(postInformation.date).toLocaleString().slice(3)}
+          </Text>
           <PostDetailComponent postInfo={postInformation} />
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#F38BA0",
-              padding: 5,
-              position: "relative",
-              top: 50,
-              borderRadius: 30,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Ionicons name="ios-close-circle" size={20} color="#FFBCBC" />
-            <Text style={{ fontSize: 15, color: "#FFBCBC" }}>
-              Close This Post
-            </Text>
-          </TouchableOpacity>
-          <View
-            style={{
-              //   backgroundColor: "yellow",
-              height: 60,
-              width: 350,
-              justifyContent: "center",
-              position: "relative",
-              top: 50,
-              marginBottom: 10,
-            }}
-          >
-            <Text
+          {auth.currentUser.uid === postInformation.userId ? (
+            <TouchableOpacity
               style={{
-                fontSize: 35,
+                backgroundColor: "red",
+                padding: 5,
+                position: "relative",
+                top: 50,
+                borderRadius: 30,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => closePost()}
+            >
+              <Ionicons name="ios-close-circle" size={20} color="#FFBCBC" />
+              <Text style={{ fontSize: 15, color: "#FFBCBC" }}>
+                {closed ? "Closed" : "Close This Post"}
+              </Text>
+            </TouchableOpacity>
+          ) : null}
+          {comments ? (
+            <View
+              style={{
+                //   backgroundColor: "yellow",
+                height: 60,
+                width: 350,
+                justifyContent: "center",
+                position: "relative",
+                top: 50,
+                marginBottom: 10,
               }}
             >
-              Comments:
-            </Text>
-          </View>
+              <Text
+                style={{
+                  fontSize: 35,
+                }}
+              >
+                Comments:
+              </Text>
+            </View>
+          ) : null}
           {comments
             ? comments.map((element, index) => (
                 <CommentComp key={index} postInfo={element} />
@@ -300,49 +341,53 @@ const FullPost = ({ route, navigation }) => {
               //   left: 0,
             }}
           >
-            <View
-              style={{
-                width: "70%",
-                height: 60,
-                backgroundColor: colors.soft,
-                // position: "relative",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: 50,
-                borderWidth: 0.1,
-                // borderColor: "blue",
-                // top: 100,
-                // left: 0,
-              }}
-            >
-              <TextInput
-                placeholder="add a comment"
-                style={{ fontSize: 15, marginRight: 30 }}
-                value={newComment}
-                onChangeText={(text) => setNewCom(text)}
-              />
-            </View>
-            <TouchableOpacity
-              style={{
-                height: 53,
-                width: 53,
-                borderRadius: 100,
-                // backgroundColor: "blue",
-                borderWidth: 0.5,
-                // padding: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: 20,
-              }}
-            >
-              <MaterialCommunityIcons
-                name="send-circle"
-                size={50}
-                color="black"
-                onPress={() => postComment()}
-                // style={{ marginLeft: 20 }}
-              />
-            </TouchableOpacity>
+            {closed ? null : (
+              <View
+                style={{
+                  width: "70%",
+                  height: 60,
+                  backgroundColor: colors.soft,
+                  // position: "relative",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 50,
+                  borderWidth: 0.1,
+                  // borderColor: "blue",
+                  // top: 100,
+                  // left: 0,
+                }}
+              >
+                <TextInput
+                  placeholder="add a comment"
+                  style={{ fontSize: 15, marginRight: 30 }}
+                  value={newComment}
+                  onChangeText={(text) => setNewCom(text)}
+                />
+              </View>
+            )}
+            {closed ? null : (
+              <TouchableOpacity
+                style={{
+                  height: 53,
+                  width: 53,
+                  borderRadius: 100,
+                  // backgroundColor: "blue",
+                  borderWidth: 0.5,
+                  // padding: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginLeft: 20,
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="send-circle"
+                  size={50}
+                  color="black"
+                  onPress={() => postComment()}
+                  // style={{ marginLeft: 20 }}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </ScrollView>

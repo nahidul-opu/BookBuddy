@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
+import { ref, getDatabase, onValue, set } from "@firebase/database";
 import { IconButton } from "../components";
 import colors from "../config/colors";
 import Firebase from "../config/firebase";
@@ -31,6 +32,19 @@ export default function Profile() {
       console.log(error);
     }
   };
+
+  const [userData, setuserData] = useState(null);
+  useEffect(() => {
+    const reference = ref(
+      getDatabase(Firebase),
+      "users/" + auth.currentUser.uid
+    );
+    onValue(reference, async (snapshot) => {
+      var u = await snapshot.val();
+      setuserData(u);
+    });
+  }, []);
+
   return (
     <View
       style={{
@@ -87,7 +101,7 @@ export default function Profile() {
             marginBottom: 30,
           }}
         >
-          A S M Mofakkharul Islam Mohammud Esaque Ali Rukon
+          {userData ? userData.name : null}
         </Text>
       </View>
 
@@ -102,10 +116,10 @@ export default function Profile() {
         <View style={styles.twoButton}>
           <Text
             style={{
-              fontSize: 50,
+              fontSize: 40,
             }}
           >
-            25
+            {userData && userData.numPost ? userData.numPost : "0"}
           </Text>
           <Text
             style={{
@@ -119,10 +133,10 @@ export default function Profile() {
         <View style={styles.twoButton}>
           <Text
             style={{
-              fontSize: 50,
+              fontSize: 40,
             }}
           >
-            21
+            {userData && userData.numExchange ? userData.numExchange : "0"}
           </Text>
           <Text
             style={{
@@ -229,6 +243,7 @@ export default function Profile() {
             // position: "relative",
             // top: 30,
           }}
+          onPress={() => handleSignOut()}
         >
           {/* for icon */}
           <View style={styles.forIcon}>

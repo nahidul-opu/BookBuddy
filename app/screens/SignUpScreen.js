@@ -23,8 +23,9 @@ function createUserInDB(name, email) {
   set(reference, {
     name: name,
     email: email,
-    verified: false,
     bookmarks: [],
+    numPost: 0,
+    numExchange: 0,
   });
 }
 

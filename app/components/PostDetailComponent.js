@@ -18,21 +18,72 @@ export default function PostDetailComponent({ postInfo }) {
       <View style={styles.bookDetail}>
         <Text
           style={{
-            fontSize: 30,
+            fontSize: 28,
             marginBottom: 5,
           }}
         >
           {postInfo.title}
         </Text>
-        <Text
+        <Text>{postInfo.genre + " Book"}</Text>
+        <View
           style={{
-            fontSize: 18,
-            color: "blue",
-            marginBottom: 5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: 10,
           }}
         >
-          {postInfo.author}
-        </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              color: "black",
+              // marginBottom: 5,
+              margin: 5,
+            }}
+          >
+            By
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "blue",
+              // marginBottom: 5,
+              margin: 5,
+            }}
+          >
+            {postInfo.author}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBottom: 5,
+          }}
+        >
+          <View style={{ width: "100%" }}>
+            <Text
+              style={{
+                marginRight: 5,
+                color: "#006644",
+                fontSize: 14,
+              }}
+            >
+              Location:
+            </Text>
+            <Text
+              style={{
+                // marginRight: 5,
+                color: "#006644",
+                fontSize: 13,
+              }}
+            >
+              {postInfo.location}
+            </Text>
+          </View>
+        </View>
 
         <ScrollView>
           <Text
@@ -59,7 +110,7 @@ const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: colors.soft, //'#ebebeb',
     width: "95%",
-    height: 250,
+    // height: 250,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",

@@ -8,34 +8,36 @@ export default function LandingScreen({ navigation }) {
       <StatusBar style="dark-content" />
       <Image source={require("../assets/logo.png")} style={styles.logo} />
 
-      <Button
-        onPress={() => navigation.navigate("Login")}
-        backgroundColor="white"
-        title="Log In"
-        titleColor="#00D6D8"
-        titleSize={16}
-        containerStyle={{
-          alignSelf: "center",
-          width: "90%",
-          marginTop: 120,
-          borderRadius: 30,
-          height: 60,
-        }}
-      />
-      <Button
-        onPress={() => navigation.navigate("Signup")}
-        backgroundColor="#FFEB00"
-        title="Sign Up"
-        titleColor="#00D6D8"
-        titleSize={16}
-        containerStyle={{
-          alignSelf: "center",
-          width: "90%",
-          margin: 30,
-          borderRadius: 30,
-          height: 60,
-        }}
-      />
+      <View style={{ position: "relative", bottom: "10%" }}>
+        <Button
+          onPress={() => navigation.navigate("Login")}
+          backgroundColor="white"
+          title="Log In"
+          titleColor="#00D6D8"
+          titleSize={16}
+          containerStyle={{
+            alignSelf: "center",
+            width: "90%",
+            marginTop: 120,
+            borderRadius: 30,
+            height: 60,
+          }}
+        />
+        <Button
+          onPress={() => navigation.navigate("Signup")}
+          backgroundColor="#FFEB00"
+          title="Sign Up"
+          titleColor="#00D6D8"
+          titleSize={16}
+          containerStyle={{
+            alignSelf: "center",
+            width: "90%",
+            margin: 30,
+            borderRadius: 30,
+            height: 60,
+          }}
+        />
+      </View>
     </View>
   );
 }

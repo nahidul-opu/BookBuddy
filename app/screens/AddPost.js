@@ -222,7 +222,7 @@ const AddPost = () => {
         <TextInput
           onChangeText={descriptionChangeText}
           placeholder="Description About Book"
-          style={styles.inputTextDesign}
+          style={styles.inputDescription}
           value={description}
         />
 
@@ -232,6 +232,7 @@ const AddPost = () => {
           onValueChange={(itemValue) => setPickValue(itemValue)}
         >
           <Picker.Item label="Action" value="Action" />
+          <Picker.Item label="Academic" value="Academic" />
           <Picker.Item label="Biography" value="Biography" />
           <Picker.Item label="Comedy" value="Comedy" />
           <Picker.Item label="Classics" value="Classics" />
@@ -319,6 +320,16 @@ const styles = StyleSheet.create({
   inputTextDesign: {
     width: "85%",
     height: 60,
+    borderRadius: 5,
+    backgroundColor: colors.input,
+    alignItems: "center",
+    paddingLeft: 15,
+    margin: 10,
+  },
+
+  inputDescription: {
+    width: "85%",
+    height: 120,
     borderRadius: 5,
     backgroundColor: colors.input,
     alignItems: "center",

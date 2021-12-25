@@ -19,7 +19,7 @@ export default function PostComp({ postInfo }) {
       <View style={styles.bookDetail}>
         <Text
           style={{
-            fontSize: 30,
+            fontSize: 25,
             marginBottom: 5,
           }}
         >
@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: colors.soft, //'#ebebeb',
     width: "100%",
-    height: 200,
+    // height: 200,
+    minHeight: 200,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",

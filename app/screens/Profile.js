@@ -23,7 +23,7 @@ import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvide
 
 const auth = Firebase.auth();
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   const { user } = useContext(AuthenticatedUserContext);
   const handleSignOut = async () => {
     try {
@@ -119,7 +119,7 @@ export default function Profile() {
               fontSize: 40,
             }}
           >
-            {userData && userData.numPost ? userData.numPost : "0"}
+            {userData ? userData.numPost : "0"}
           </Text>
           <Text
             style={{
@@ -136,7 +136,7 @@ export default function Profile() {
               fontSize: 40,
             }}
           >
-            {userData && userData.numExchange ? userData.numExchange : "0"}
+            {userData ? userData.numExchange : "0"}
           </Text>
           <Text
             style={{
@@ -174,6 +174,7 @@ export default function Profile() {
             // position: "relative",
             // top: 30,
           }}
+          onPress={() => navigation.navigate("History")}
         >
           {/* for icon */}
           <View style={styles.forIcon}>

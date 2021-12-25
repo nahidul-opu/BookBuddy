@@ -1,12 +1,11 @@
 import * as React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import Profile from "../screens/Profile";
 import BooksView from "../screens/BooksView";
 import AddPost from "../screens/AddPost";
 import tempPost from "../screens/tempPost";
 import tempBookmarkPost from "../screens/tempBookmarkPost";
 import colors from "../config/colors";
-import Bookmarks from "../screens/Bookmarks";
+import tempHistory from "../screens/tempHistory";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -80,7 +79,7 @@ export default function HomeStack() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={tempHistory}
         options={{
           title: "Profile",
           tabBarIcon: ({ tintColor, focused }) => (
